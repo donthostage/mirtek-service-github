@@ -1,0 +1,23 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "store_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "title": "Store Id",
+      "type": "string"
+    },
+    "on_date": {
+      "format": "date",
+      "title": "On Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "store_id",
+    "on_date"
+  ],
+  "title": "HoursQuery",
+  "type": "object"
+}

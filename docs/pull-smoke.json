@@ -1,0 +1,290 @@
+{
+  "label": "REAL LOOPBACK HTTP PULL WITH SYNTHETIC DATA; NOT COMPANY KPI",
+  "generated_at": "2026-10-23T20:19:15.732879+03:00",
+  "source_is_separate_process": true,
+  "llm_calls": false,
+  "company_connected": false,
+  "requests": [
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-1"
+      },
+      "response": {
+        "request_id": "62656238-b468-4121-8f57-f0d7d9f480f1",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-24T00:19:14.565157+07:00",
+            "valid_until": "2026-10-24T00:24:14.565157+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.569880+07:00",
+        "elapsed_ms": 61.866,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 79.372
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-2"
+      },
+      "response": {
+        "request_id": "9799ee19-20ab-4054-b24d-4599cde6deb8",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 2 (WH-DEMO-2): 0 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-24T00:19:14.604397+07:00",
+            "valid_until": "2026-10-24T00:24:14.604397+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.609839+07:00",
+        "elapsed_ms": 37.837,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 39.838
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10002",
+        "warehouse_id": "WH-DEMO-2"
+      },
+      "response": {
+        "request_id": "99ebadd6-131a-4ad9-8d6e-f325d1a10fd3",
+        "status": "handoff",
+        "answer": "Достоверного остатка нет. Нужен оператор; сообщение сотруднику не отправлено.",
+        "reason_code": "missing_stock",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.644154+07:00",
+        "elapsed_ms": 30.526,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 32.461
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Есть артикул 10001 WH-DEMO-1?"
+      },
+      "response": {
+        "request_id": "a13a3c6d-2366-447a-b20e-ea1b3db6ee48",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-24T00:19:14.659967+07:00",
+            "valid_until": "2026-10-24T00:24:14.659967+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.644154+07:00",
+        "elapsed_ms": 17.374,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 19.378
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как оформить возврат?"
+      },
+      "response": {
+        "request_id": "b24ae534-e419-47ff-8fed-b0fd70f1d769",
+        "status": "needs_clarification",
+        "answer": "Покупали в магазине, на сайте или на маркетплейсе?",
+        "reason_code": "missing_purchase_channel",
+        "intent": "returns",
+        "sources": [],
+        "context_id": "b6541af0-4e3b-491e-aa9b-0ebb361fb641",
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.664915+07:00",
+        "elapsed_ms": 17.742,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 19.598
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "В магазине",
+        "context_id": "b6541af0-4e3b-491e-aa9b-0ebb361fb641"
+      },
+      "response": {
+        "request_id": "d32ad1d1-ad80-4785-881c-c307a027c460",
+        "status": "answered",
+        "answer": "Учебный пример для покупки в магазине: подготовьте описание покупки и обратитесь к сотруднику для рассмотрения возврата. Это вымышленная инструкция, не правила Миртека.",
+        "reason_code": "source_answer",
+        "intent": "returns",
+        "sources": [
+          {
+            "id": "DEMO-returns-steps-store",
+            "version": "draft-1",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.684153+07:00",
+        "elapsed_ms": 14.229,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.902
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как оставить жалобу?"
+      },
+      "response": {
+        "request_id": "99ded74f-b139-4d85-a444-36e68d91b51d",
+        "status": "answered",
+        "answer": "Учебный пример подачи жалобы: опишите, что произошло и какого решения ожидаете. Для рассмотрения нужен сотрудник. Жалоба этим сообщением не регистрируется. Это вымышленная инструкция.",
+        "reason_code": "source_answer",
+        "intent": "complaints",
+        "sources": [
+          {
+            "id": "DEMO-complaints-complaint_procedure-all",
+            "version": "draft-1",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.700335+07:00",
+        "elapsed_ms": 14.731,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 16.371
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Жалоба на обслуживание"
+      },
+      "response": {
+        "request_id": "1b751774-a568-44b0-89cd-ffca641416ea",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "individual_review_required",
+        "intent": "complaints",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:14.715517+07:00",
+        "elapsed_ms": 0.083,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": {
+          "customer_text": "Жалоба на обслуживание",
+          "scenarios": [
+            "complaints"
+          ],
+          "reason_code": "individual_review_required",
+          "request_id": "1b751774-a568-44b0-89cd-ffca641416ea",
+          "known_fields": {
+            "purchase_channel": null
+          }
+        },
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 1.491
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-1"
+      },
+      "response": {
+        "request_id": "400658e5-0535-4d8d-a43a-681eaf38da3d",
+        "status": "handoff",
+        "answer": "Не удалось подтвердить остаток. Нужен оператор; сообщение сотруднику не отправлено.",
+        "reason_code": "source_timeout",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-24T00:19:15.732879+07:00",
+        "elapsed_ms": 1010.693,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 1012.669
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "on_date": {
+      "format": "date",
+      "title": "On Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "on_date"
+  ],
+  "title": "PromotionQuery",
+  "type": "object"
+}

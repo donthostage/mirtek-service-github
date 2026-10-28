@@ -1,0 +1,21 @@
+{
+  "label": "OPEN SYNTHETIC MODEL COMPARISON SET NOT A HOLDOUT",
+  "cases": [
+    {"id":"return-followup","steps":[
+      {"text":"Подскажите, как оформить возврат покупки?","status":"needs_clarification","intent":"returns"},
+      {"text":"Покупал лично в торговом зале","status":"answered","intent":"returns","source_id":"DEMO-returns-steps-store"}
+    ]},
+    {"id":"return-documents","steps":[
+      {"text":"Что мне подготовить для возврата?","status":"answered","intent":"returns","source_id":"DEMO-returns-documents-all"}
+    ]},
+    {"id":"complaint-procedure","steps":[
+      {"text":"Как подать жалобу на сотрудника?","status":"answered","intent":"complaints","source_id":"DEMO-complaints-complaint_procedure-all"}
+    ]},
+    {"id":"actual-complaint","steps":[
+      {"text":"Мне нагрубили, хочу пожаловаться и прошу разобраться","status":"handoff","intent":"complaints","reason_code":"individual_review_required"}
+    ]},
+    {"id":"unsupported","steps":[
+      {"text":"Реши за меня домашнее задание по математике","status":"handoff","reason_code":"unsupported_intent"}
+    ]}
+  ]
+}

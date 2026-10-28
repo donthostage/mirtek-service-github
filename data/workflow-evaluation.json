@@ -1,0 +1,1086 @@
+{
+  "label": "RECORDED SEMANTIC OUTPUTS FOR WORKFLOW REGRESSION NOT A LLM BENCHMARK",
+  "fixture_time": "2026-10-23T12:00:00+07:00",
+  "cases": [
+    {
+      "id": "return-followup",
+      "steps": [
+        {
+          "text": "Как оформить возврат?",
+          "model_output": {
+            "intents": [
+              "returns"
+            ],
+            "request_kind": "information",
+            "topic": "steps",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "needs_clarification",
+            "intent": "returns",
+            "reason_code": "missing_purchase_channel"
+          }
+        },
+        {
+          "text": "Лично в торговом зале",
+          "model_output": {
+            "intents": [],
+            "request_kind": "followup",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": {
+                "value": "store",
+                "text": "Лично в торговом зале"
+              },
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "returns",
+            "source_id": "DEMO-returns-steps-store"
+          }
+        }
+      ]
+    },
+    {
+      "id": "return-documents",
+      "steps": [
+        {
+          "text": "Что мне подготовить для возврата?",
+          "model_output": {
+            "intents": [
+              "returns"
+            ],
+            "request_kind": "information",
+            "topic": "documents",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "returns",
+            "source_id": "DEMO-returns-documents-all"
+          }
+        }
+      ]
+    },
+    {
+      "id": "individual-return",
+      "steps": [
+        {
+          "text": "Хочу вернуть деньги",
+          "model_output": {
+            "intents": [
+              "returns"
+            ],
+            "request_kind": "individual_case",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "returns",
+            "reason_code": "individual_review_required"
+          }
+        }
+      ]
+    },
+    {
+      "id": "complaint-procedure",
+      "steps": [
+        {
+          "text": "Как подать жалобу на сотрудника?",
+          "model_output": {
+            "intents": [
+              "complaints"
+            ],
+            "request_kind": "information",
+            "topic": "complaint_procedure",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "complaints",
+            "source_id": "DEMO-complaints-complaint_procedure-all"
+          }
+        }
+      ]
+    },
+    {
+      "id": "individual-complaint",
+      "steps": [
+        {
+          "text": "Мне нагрубили, хочу пожаловаться",
+          "model_output": {
+            "intents": [
+              "complaints"
+            ],
+            "request_kind": "individual_case",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "complaints",
+            "reason_code": "individual_review_required"
+          }
+        }
+      ]
+    },
+    {
+      "id": "linked-complaint-return",
+      "steps": [
+        {
+          "text": "Брак, хочу возврат и жалобу",
+          "model_output": {
+            "intents": [
+              "returns",
+              "complaints"
+            ],
+            "request_kind": "individual_case",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "multiple_intents",
+            "scenarios": [
+              "returns",
+              "complaints"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "stock-available",
+      "steps": [
+        {
+          "text": "Проверьте 10001 для WH-DEMO-1",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "stock",
+            "contains": "12.5 м",
+            "source_id": "demo-warehouse-api"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stock-zero",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-DEMO-2?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-2"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "stock",
+            "contains": ": 0 м"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stock-unknown-not-zero",
+      "steps": [
+        {
+          "text": "Есть 10002 WH-DEMO-2?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10002"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-2"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "missing_stock"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stock-followup",
+      "steps": [
+        {
+          "text": "Проверьте 10001",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "needs_clarification",
+            "intent": "stock",
+            "reason_code": "missing_warehouse"
+          }
+        },
+        {
+          "text": "WH-DEMO-1",
+          "model_output": {
+            "intents": [],
+            "request_kind": "followup",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "stock",
+            "contains": "12.5 м"
+          }
+        }
+      ]
+    },
+    {
+      "id": "product-unknown",
+      "steps": [
+        {
+          "text": "Есть 99999 WH-DEMO-1?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "99999"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "unknown_product"
+          }
+        }
+      ]
+    },
+    {
+      "id": "warehouse-unknown",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-UNKNOWN?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-UNKNOWN"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "unknown_warehouse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "warehouse-invented",
+      "steps": [
+        {
+          "text": "Есть 10001 на Учебной?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "model_invalid_response"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identifier-partial",
+      "steps": [
+        {
+          "text": "Есть 100012 WH-DEMO-1?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "model_invalid_response"
+          }
+        }
+      ]
+    },
+    {
+      "id": "future-stock",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-DEMO-1 завтра?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "завтра"
+              }
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "future_stock_unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hours-special-closure",
+      "steps": [
+        {
+          "text": "Как работает S1 сегодня?",
+          "model_output": {
+            "intents": [
+              "hours"
+            ],
+            "request_kind": "information",
+            "topic": "hours",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": {
+                "text": "S1"
+              },
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "сегодня"
+              }
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "hours",
+            "contains": "2026-10-23: закрыт"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hours-weekend",
+      "steps": [
+        {
+          "text": "Как работает S2 завтра?",
+          "model_output": {
+            "intents": [
+              "hours"
+            ],
+            "request_kind": "information",
+            "topic": "hours",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": {
+                "text": "S2"
+              },
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "завтра"
+              }
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "hours",
+            "contains": "2026-10-24: 10:00–17:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hours-weekday",
+      "steps": [
+        {
+          "text": "Когда закрывается S2 в понедельник?",
+          "model_output": {
+            "intents": [
+              "hours"
+            ],
+            "request_kind": "information",
+            "topic": "hours",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": {
+                "text": "S2"
+              },
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "в понедельник"
+              }
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "hours",
+            "contains": "2026-10-26: 10:00–19:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hours-ambiguous-date",
+      "steps": [
+        {
+          "text": "Режим S1 в следующую пятницу?",
+          "model_output": {
+            "intents": [
+              "hours"
+            ],
+            "request_kind": "information",
+            "topic": "hours",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": {
+                "text": "S1"
+              },
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "в следующую пятницу"
+              }
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "hours",
+            "reason_code": "unsupported_date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "promotions-current",
+      "steps": [
+        {
+          "text": "Что сегодня со скидками?",
+          "model_output": {
+            "intents": [
+              "promotions"
+            ],
+            "request_kind": "information",
+            "topic": "promotion_list",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "сегодня"
+              }
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "promotions",
+            "contains": "5%"
+          }
+        }
+      ]
+    },
+    {
+      "id": "promotions-future",
+      "steps": [
+        {
+          "text": "Что подешевеет завтра?",
+          "model_output": {
+            "intents": [
+              "promotions"
+            ],
+            "request_kind": "information",
+            "topic": "promotion_list",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": {
+                "text": "завтра"
+              }
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "promotions",
+            "reason_code": "unsupported_date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "delivery-general",
+      "steps": [
+        {
+          "text": "Какие условия доставки?",
+          "model_output": {
+            "intents": [
+              "delivery"
+            ],
+            "request_kind": "information",
+            "topic": "delivery_terms",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "delivery",
+            "contains": "после подтверждения"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pickup-general",
+      "steps": [
+        {
+          "text": "Как забрать покупку?",
+          "model_output": {
+            "intents": [
+              "delivery"
+            ],
+            "request_kind": "information",
+            "topic": "pickup_terms",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "delivery",
+            "contains": "самовывоз"
+          }
+        }
+      ]
+    },
+    {
+      "id": "delivery-individual",
+      "steps": [
+        {
+          "text": "Где моя посылка?",
+          "model_output": {
+            "intents": [
+              "delivery"
+            ],
+            "request_kind": "individual_case",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "delivery",
+            "reason_code": "individual_review_required"
+          }
+        }
+      ]
+    },
+    {
+      "id": "unsupported",
+      "steps": [
+        {
+          "text": "Реши задачу по математике",
+          "model_output": {
+            "intents": [],
+            "request_kind": "unsupported",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "unsupported_intent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "explicit-operator",
+      "steps": [
+        {
+          "text": "Соедините с оператором",
+          "model_output": {
+            "intents": [],
+            "request_kind": "operator_request",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "operator_requested"
+          }
+        }
+      ]
+    },
+    {
+      "id": "source-down",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-DEMO-1?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "source_unavailable"
+          }
+        }
+      ],
+      "source_fault": "unavailable"
+    },
+    {
+      "id": "source-stale",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-DEMO-1?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "source_stale"
+          }
+        }
+      ],
+      "source_fault": "stale"
+    },
+    {
+      "id": "source-wrong-warehouse",
+      "steps": [
+        {
+          "text": "Есть 10001 WH-DEMO-1?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "intent": "stock",
+            "reason_code": "source_scope_mismatch"
+          }
+        }
+      ],
+      "source_fault": "wrong_warehouse"
+    },
+    {
+      "id": "malformed-model",
+      "steps": [
+        {
+          "text": "Как оформить возврат?",
+          "model_output": {
+            "not": "a valid parse"
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "model_invalid_response"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uncertain-model",
+      "steps": [
+        {
+          "text": "Есть это самое?",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": true,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "handoff",
+            "reason_code": "uncertain_intent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "new-topic-resets-state",
+      "steps": [
+        {
+          "text": "Как оформить возврат?",
+          "model_output": {
+            "intents": [
+              "returns"
+            ],
+            "request_kind": "information",
+            "topic": "steps",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "needs_clarification",
+            "intent": "returns",
+            "reason_code": "missing_purchase_channel"
+          }
+        },
+        {
+          "text": "Проверьте 10001",
+          "model_output": {
+            "intents": [
+              "stock"
+            ],
+            "request_kind": "information",
+            "topic": "stock",
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": {
+                "text": "10001"
+              },
+              "warehouse_id": null,
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "needs_clarification",
+            "intent": "stock",
+            "reason_code": "missing_warehouse"
+          }
+        },
+        {
+          "text": "WH-DEMO-1",
+          "model_output": {
+            "intents": [],
+            "request_kind": "followup",
+            "topic": null,
+            "reason": null,
+            "uncertain": false,
+            "slots": {
+              "sku": null,
+              "warehouse_id": {
+                "text": "WH-DEMO-1"
+              },
+              "store": null,
+              "purchase_channel": null,
+              "requested_date": null
+            }
+          },
+          "expected": {
+            "status": "answered",
+            "intent": "stock",
+            "contains": "12.5 м"
+          }
+        }
+      ]
+    }
+  ]
+}

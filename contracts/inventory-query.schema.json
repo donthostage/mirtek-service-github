@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "sku": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "title": "Sku",
+      "type": "string"
+    },
+    "warehouse_id": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "title": "Warehouse Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sku",
+    "warehouse_id"
+  ],
+  "title": "InventoryQuery",
+  "type": "object"
+}

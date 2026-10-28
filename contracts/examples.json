@@ -1,0 +1,456 @@
+{
+  "label": "SYNTHETIC DESIGN EXAMPLES; NOT LLM OUTPUT OR COMPANY POLICY",
+  "fixture_time": "2026-10-23T12:00:00+07:00",
+  "examples": [
+    {
+      "customer_text": "Как оформить возврат?",
+      "parse_fixture": {
+        "scenarios": [
+          "returns"
+        ],
+        "request_kind": "policy_question",
+        "topic": "steps",
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": {
+        "scenario": "returns",
+        "topic": "steps",
+        "purchase_channel": null
+      },
+      "source_response": {
+        "status": "needs_context",
+        "policy": null,
+        "missing_fields": [
+          "purchase_channel"
+        ]
+      },
+      "expected_decision": {
+        "request_id": "74993116-3689-5b2d-8bd2-bbcb9e4432c5",
+        "status": "needs_clarification",
+        "intent": "returns",
+        "scenarios": [
+          "returns"
+        ],
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [],
+        "missing_fields": [
+          "purchase_channel"
+        ],
+        "answer": "Покупали в магазине, на сайте или на маркетплейсе?",
+        "reason_code": "missing_purchase_channel"
+      }
+    },
+    {
+      "customer_text": "В магазине",
+      "parse_fixture": {
+        "scenarios": [
+          "returns"
+        ],
+        "request_kind": "policy_question",
+        "topic": "steps",
+        "purchase_channel": "store",
+        "uncertain": false
+      },
+      "source_request": {
+        "scenario": "returns",
+        "topic": "steps",
+        "purchase_channel": "store"
+      },
+      "source_response": {
+        "status": "found",
+        "policy": {
+          "id": "DEMO-returns-steps-store",
+          "version": "draft-1",
+          "scenario": "returns",
+          "topic": "steps",
+          "channel": "store",
+          "text": "Учебный пример для покупки в магазине: подготовьте описание покупки и обратитесь к сотруднику для рассмотрения возврата. Это вымышленная инструкция, не правила Миртека.",
+          "as_of": "2026-10-23T00:00:00+07:00",
+          "valid_until": "2026-11-23T00:00:00+07:00",
+          "approval_state": "synthetic_demo",
+          "approved_by": null,
+          "approved_at": null
+        },
+        "missing_fields": []
+      },
+      "expected_decision": {
+        "request_id": "fb3c25d6-fe24-514c-88c4-04463cf41760",
+        "status": "answered",
+        "intent": "returns",
+        "scenarios": [
+          "returns"
+        ],
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [
+          {
+            "id": "DEMO-returns-steps-store",
+            "version": "draft-1",
+            "scenario": "returns",
+            "topic": "steps",
+            "channel": "store",
+            "text": "Учебный пример для покупки в магазине: подготовьте описание покупки и обратитесь к сотруднику для рассмотрения возврата. Это вымышленная инструкция, не правила Миртека.",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "approval_state": "synthetic_demo",
+            "approved_by": null,
+            "approved_at": null
+          }
+        ],
+        "missing_fields": [],
+        "answer": "Учебный пример для покупки в магазине: подготовьте описание покупки и обратитесь к сотруднику для рассмотрения возврата. Это вымышленная инструкция, не правила Миртека.",
+        "reason_code": "source_answer"
+      }
+    },
+    {
+      "customer_text": "Какие документы нужны?",
+      "parse_fixture": {
+        "scenarios": [
+          "returns"
+        ],
+        "request_kind": "policy_question",
+        "topic": "documents",
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": {
+        "scenario": "returns",
+        "topic": "documents",
+        "purchase_channel": null
+      },
+      "source_response": {
+        "status": "found",
+        "policy": {
+          "id": "DEMO-returns-documents-all",
+          "version": "draft-1",
+          "scenario": "returns",
+          "topic": "documents",
+          "channel": "all",
+          "text": "Учебный пример: сотруднику понадобится описание покупки и причины обращения. Конкретный перечень документов для реального возврата должен предоставить Миртек.",
+          "as_of": "2026-10-23T00:00:00+07:00",
+          "valid_until": "2026-11-23T00:00:00+07:00",
+          "approval_state": "synthetic_demo",
+          "approved_by": null,
+          "approved_at": null
+        },
+        "missing_fields": []
+      },
+      "expected_decision": {
+        "request_id": "118776c1-4bde-55f5-93ae-5ba65ce486e6",
+        "status": "answered",
+        "intent": "returns",
+        "scenarios": [
+          "returns"
+        ],
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [
+          {
+            "id": "DEMO-returns-documents-all",
+            "version": "draft-1",
+            "scenario": "returns",
+            "topic": "documents",
+            "channel": "all",
+            "text": "Учебный пример: сотруднику понадобится описание покупки и причины обращения. Конкретный перечень документов для реального возврата должен предоставить Миртек.",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "approval_state": "synthetic_demo",
+            "approved_by": null,
+            "approved_at": null
+          }
+        ],
+        "missing_fields": [],
+        "answer": "Учебный пример: сотруднику понадобится описание покупки и причины обращения. Конкретный перечень документов для реального возврата должен предоставить Миртек.",
+        "reason_code": "source_answer"
+      }
+    },
+    {
+      "customer_text": "Хочу вернуть отрезанную ткань",
+      "parse_fixture": {
+        "scenarios": [
+          "returns"
+        ],
+        "request_kind": "individual_case",
+        "topic": null,
+        "purchase_channel": "store",
+        "uncertain": false
+      },
+      "source_request": null,
+      "source_response": null,
+      "expected_decision": {
+        "request_id": "f6f8e67a-28ee-570d-89b3-77d9673de382",
+        "status": "handoff",
+        "intent": "returns",
+        "scenarios": [
+          "returns"
+        ],
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [],
+        "missing_fields": [],
+        "answer": "Для ответа нужен сотрудник. Автоматическая отправка сотруднику в прототипе отсутствует.",
+        "reason_code": "individual_review_required",
+        "handoff_payload": {
+          "customer_text": "Хочу вернуть отрезанную ткань",
+          "scenarios": [
+            "returns"
+          ],
+          "reason_code": "individual_review_required",
+          "request_id": "f6f8e67a-28ee-570d-89b3-77d9673de382",
+          "known_fields": {
+            "purchase_channel": "store"
+          }
+        }
+      }
+    },
+    {
+      "customer_text": "Как оставить жалобу?",
+      "parse_fixture": {
+        "scenarios": [
+          "complaints"
+        ],
+        "request_kind": "policy_question",
+        "topic": "complaint_procedure",
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": {
+        "scenario": "complaints",
+        "topic": "complaint_procedure",
+        "purchase_channel": null
+      },
+      "source_response": {
+        "status": "found",
+        "policy": {
+          "id": "DEMO-complaints-complaint_procedure-all",
+          "version": "draft-1",
+          "scenario": "complaints",
+          "topic": "complaint_procedure",
+          "channel": "all",
+          "text": "Учебный пример подачи жалобы: опишите, что произошло и какого решения ожидаете. Для рассмотрения нужен сотрудник. Жалоба этим сообщением не регистрируется. Это вымышленная инструкция.",
+          "as_of": "2026-10-23T00:00:00+07:00",
+          "valid_until": "2026-11-23T00:00:00+07:00",
+          "approval_state": "synthetic_demo",
+          "approved_by": null,
+          "approved_at": null
+        },
+        "missing_fields": []
+      },
+      "expected_decision": {
+        "request_id": "61311a7c-9f18-5cf0-8015-d34a0c1b2b85",
+        "status": "answered",
+        "intent": "complaints",
+        "scenarios": [
+          "complaints"
+        ],
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [
+          {
+            "id": "DEMO-complaints-complaint_procedure-all",
+            "version": "draft-1",
+            "scenario": "complaints",
+            "topic": "complaint_procedure",
+            "channel": "all",
+            "text": "Учебный пример подачи жалобы: опишите, что произошло и какого решения ожидаете. Для рассмотрения нужен сотрудник. Жалоба этим сообщением не регистрируется. Это вымышленная инструкция.",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "approval_state": "synthetic_demo",
+            "approved_by": null,
+            "approved_at": null
+          }
+        ],
+        "missing_fields": [],
+        "answer": "Учебный пример подачи жалобы: опишите, что произошло и какого решения ожидаете. Для рассмотрения нужен сотрудник. Жалоба этим сообщением не регистрируется. Это вымышленная инструкция.",
+        "reason_code": "source_answer"
+      }
+    },
+    {
+      "customer_text": "Мне нагрубили, хочу пожаловаться",
+      "parse_fixture": {
+        "scenarios": [
+          "complaints"
+        ],
+        "request_kind": "individual_case",
+        "topic": null,
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": null,
+      "source_response": null,
+      "expected_decision": {
+        "request_id": "5f6ec004-0565-5fe6-8583-e38b6e8948fb",
+        "status": "handoff",
+        "intent": "complaints",
+        "scenarios": [
+          "complaints"
+        ],
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [],
+        "missing_fields": [],
+        "answer": "Для ответа нужен сотрудник. Автоматическая отправка сотруднику в прототипе отсутствует.",
+        "reason_code": "individual_review_required",
+        "handoff_payload": {
+          "customer_text": "Мне нагрубили, хочу пожаловаться",
+          "scenarios": [
+            "complaints"
+          ],
+          "reason_code": "individual_review_required",
+          "request_id": "5f6ec004-0565-5fe6-8583-e38b6e8948fb",
+          "known_fields": {
+            "purchase_channel": null
+          }
+        }
+      }
+    },
+    {
+      "customer_text": "Привезли брак, хочу возврат и жалобу",
+      "parse_fixture": {
+        "scenarios": [
+          "returns",
+          "complaints"
+        ],
+        "request_kind": "individual_case",
+        "topic": null,
+        "purchase_channel": "website",
+        "uncertain": false
+      },
+      "source_request": null,
+      "source_response": null,
+      "expected_decision": {
+        "request_id": "22a8fc1f-6afb-51e1-8a47-826e56e0d2ca",
+        "status": "handoff",
+        "intent": null,
+        "scenarios": [
+          "returns",
+          "complaints"
+        ],
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [],
+        "missing_fields": [],
+        "answer": "Для ответа нужен сотрудник. Автоматическая отправка сотруднику в прототипе отсутствует.",
+        "reason_code": "multiple_intents",
+        "handoff_payload": {
+          "customer_text": "Привезли брак, хочу возврат и жалобу",
+          "scenarios": [
+            "returns",
+            "complaints"
+          ],
+          "reason_code": "multiple_intents",
+          "request_id": "22a8fc1f-6afb-51e1-8a47-826e56e0d2ca",
+          "known_fields": {
+            "purchase_channel": "website"
+          }
+        }
+      }
+    },
+    {
+      "customer_text": "Когда ответят на жалобу?",
+      "parse_fixture": {
+        "scenarios": [
+          "complaints"
+        ],
+        "request_kind": "policy_question",
+        "topic": "complaint_review",
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": {
+        "scenario": "complaints",
+        "topic": "complaint_review",
+        "purchase_channel": null
+      },
+      "source_response": {
+        "status": "found",
+        "policy": {
+          "id": "DEMO-complaints-complaint_review-all",
+          "version": "draft-1",
+          "scenario": "complaints",
+          "topic": "complaint_review",
+          "channel": "all",
+          "text": "Учебный пример: срок рассмотрения жалобы в этом источнике не указан. Называть количество дней нельзя. Для конкретного срока нужен сотрудник. Это вымышленная инструкция, не порядок Миртека.",
+          "as_of": "2026-10-23T00:00:00+07:00",
+          "valid_until": "2026-11-23T00:00:00+07:00",
+          "approval_state": "synthetic_demo",
+          "approved_by": null,
+          "approved_at": null
+        },
+        "missing_fields": []
+      },
+      "expected_decision": {
+        "request_id": "b9cf3445-88db-51ff-ba63-f1611baf5abd",
+        "status": "answered",
+        "intent": "complaints",
+        "scenarios": [
+          "complaints"
+        ],
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [
+          {
+            "id": "DEMO-complaints-complaint_review-all",
+            "version": "draft-1",
+            "scenario": "complaints",
+            "topic": "complaint_review",
+            "channel": "all",
+            "text": "Учебный пример: срок рассмотрения жалобы в этом источнике не указан. Называть количество дней нельзя. Для конкретного срока нужен сотрудник. Это вымышленная инструкция, не порядок Миртека.",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "approval_state": "synthetic_demo",
+            "approved_by": null,
+            "approved_at": null
+          }
+        ],
+        "missing_fields": [],
+        "answer": "Учебный пример: срок рассмотрения жалобы в этом источнике не указан. Называть количество дней нельзя. Для конкретного срока нужен сотрудник. Это вымышленная инструкция, не порядок Миртека.",
+        "reason_code": "source_answer"
+      }
+    },
+    {
+      "customer_text": "Хочу человека",
+      "parse_fixture": {
+        "scenarios": [],
+        "request_kind": "operator_request",
+        "topic": null,
+        "purchase_channel": null,
+        "uncertain": false
+      },
+      "source_request": null,
+      "source_response": null,
+      "expected_decision": {
+        "request_id": "ba567695-1732-5d1b-b409-80f69ea9245a",
+        "status": "handoff",
+        "intent": null,
+        "scenarios": [],
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_design_reference",
+        "sources": [],
+        "missing_fields": [],
+        "answer": "Для ответа нужен сотрудник. Автоматическая отправка сотруднику в прототипе отсутствует.",
+        "reason_code": "operator_requested",
+        "handoff_payload": {
+          "customer_text": "Хочу человека",
+          "scenarios": [],
+          "reason_code": "operator_requested",
+          "request_id": "ba567695-1732-5d1b-b409-80f69ea9245a",
+          "known_fields": {
+            "purchase_channel": null
+          }
+        }
+      }
+    }
+  ]
+}

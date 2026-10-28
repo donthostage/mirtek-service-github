@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "PromotionLine": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "all",
+            "restricted"
+          ],
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "scope"
+      ],
+      "title": "PromotionLine",
+      "type": "object"
+    },
+    "SourceStamp": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "valid_until": {
+          "format": "date-time",
+          "title": "Valid Until",
+          "type": "string"
+        },
+        "synthetic": {
+          "title": "Synthetic",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "as_of",
+        "valid_until",
+        "synthetic"
+      ],
+      "title": "SourceStamp",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "found",
+        "unavailable"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "on_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "On Date"
+    },
+    "promotions": {
+      "items": {
+        "$ref": "#/$defs/PromotionLine"
+      },
+      "title": "Promotions",
+      "type": "array"
+    },
+    "source": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SourceStamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "title": "PromotionResult",
+  "type": "object"
+}

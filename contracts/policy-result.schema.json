@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "PolicyDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "scenario": {
+          "enum": [
+            "returns",
+            "complaints"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        },
+        "topic": {
+          "enum": [
+            "steps",
+            "documents",
+            "conditions",
+            "complaint_procedure",
+            "complaint_review"
+          ],
+          "title": "Topic",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "enum": [
+                "store",
+                "website",
+                "marketplace"
+              ],
+              "type": "string"
+            },
+            {
+              "const": "all",
+              "type": "string"
+            }
+          ],
+          "title": "Channel"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "valid_until": {
+          "format": "date-time",
+          "title": "Valid Until",
+          "type": "string"
+        },
+        "approval_state": {
+          "enum": [
+            "synthetic_demo",
+            "company_approved"
+          ],
+          "title": "Approval State",
+          "type": "string"
+        },
+        "approved_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approved By"
+        },
+        "approved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approved At"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "scenario",
+        "topic",
+        "channel",
+        "text",
+        "as_of",
+        "valid_until",
+        "approval_state"
+      ],
+      "title": "PolicyDocument",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "found",
+        "needs_context",
+        "not_found",
+        "unavailable"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "policy": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PolicyDocument"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "missing_fields": {
+      "items": {
+        "const": "purchase_channel",
+        "type": "string"
+      },
+      "title": "Missing Fields",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "title": "PolicyResult",
+  "type": "object"
+}

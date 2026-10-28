@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "scenario": {
+      "enum": [
+        "returns",
+        "complaints"
+      ],
+      "title": "Scenario",
+      "type": "string"
+    },
+    "topic": {
+      "enum": [
+        "steps",
+        "documents",
+        "conditions",
+        "complaint_procedure",
+        "complaint_review"
+      ],
+      "title": "Topic",
+      "type": "string"
+    },
+    "purchase_channel": {
+      "anyOf": [
+        {
+          "enum": [
+            "store",
+            "website",
+            "marketplace"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Purchase Channel"
+    }
+  },
+  "required": [
+    "scenario",
+    "topic"
+  ],
+  "title": "PolicyQuery",
+  "type": "object"
+}

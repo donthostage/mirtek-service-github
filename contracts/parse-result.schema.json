@@ -1,0 +1,74 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "scenarios": {
+      "items": {
+        "enum": [
+          "returns",
+          "complaints"
+        ],
+        "type": "string"
+      },
+      "maxItems": 2,
+      "title": "Scenarios",
+      "type": "array"
+    },
+    "request_kind": {
+      "enum": [
+        "policy_question",
+        "individual_case",
+        "operator_request",
+        "unsupported"
+      ],
+      "title": "Request Kind",
+      "type": "string"
+    },
+    "topic": {
+      "anyOf": [
+        {
+          "enum": [
+            "steps",
+            "documents",
+            "conditions",
+            "complaint_procedure",
+            "complaint_review"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Topic"
+    },
+    "purchase_channel": {
+      "anyOf": [
+        {
+          "enum": [
+            "store",
+            "website",
+            "marketplace"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Purchase Channel"
+    },
+    "uncertain": {
+      "title": "Uncertain",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "scenarios",
+    "request_kind",
+    "topic",
+    "purchase_channel",
+    "uncertain"
+  ],
+  "title": "ParseResult",
+  "type": "object"
+}

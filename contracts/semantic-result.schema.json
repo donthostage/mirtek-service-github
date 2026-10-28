@@ -1,0 +1,196 @@
+{
+  "$defs": {
+    "ChannelMention": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "enum": [
+            "store",
+            "website",
+            "marketplace"
+          ],
+          "title": "Value",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "text"
+      ],
+      "title": "ChannelMention",
+      "type": "object"
+    },
+    "Mention": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "Mention",
+      "type": "object"
+    },
+    "Slots": {
+      "additionalProperties": false,
+      "properties": {
+        "sku": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mention"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warehouse_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mention"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "store": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mention"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "purchase_channel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChannelMention"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requested_date": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mention"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "sku",
+        "warehouse_id",
+        "store",
+        "purchase_channel",
+        "requested_date"
+      ],
+      "title": "Slots",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "intents": {
+      "items": {
+        "enum": [
+          "hours",
+          "stock",
+          "promotions",
+          "delivery",
+          "returns",
+          "complaints"
+        ],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "title": "Intents",
+      "type": "array"
+    },
+    "request_kind": {
+      "enum": [
+        "information",
+        "individual_case",
+        "operator_request",
+        "followup",
+        "unsupported"
+      ],
+      "title": "Request Kind",
+      "type": "string"
+    },
+    "topic": {
+      "anyOf": [
+        {
+          "enum": [
+            "steps",
+            "documents",
+            "conditions",
+            "complaint_procedure",
+            "complaint_review",
+            "delivery_terms",
+            "pickup_terms",
+            "promotion_list",
+            "hours",
+            "stock"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Topic"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "enum": [
+            "operator_requested",
+            "requires_operator",
+            "unsupported_intent"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason"
+    },
+    "uncertain": {
+      "title": "Uncertain",
+      "type": "boolean"
+    },
+    "slots": {
+      "$ref": "#/$defs/Slots"
+    }
+  },
+  "required": [
+    "intents",
+    "request_kind",
+    "topic",
+    "reason",
+    "uncertain",
+    "slots"
+  ],
+  "title": "SemanticResult",
+  "type": "object"
+}

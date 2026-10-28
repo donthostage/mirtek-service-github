@@ -1,0 +1,1045 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Миртек мок API источников",
+    "description": "Шлюз чтения для нормализатора. Имена полей наши. Запись не поддерживается. Только моки, подключения к компании нет.",
+    "version": "0.4.0"
+  },
+  "paths": {
+    "/source/v1/policies/resolve": {
+      "post": {
+        "summary": "Resolve Policy",
+        "operationId": "resolve_policy_source_v1_policies_resolve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PolicyQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/v1/stores/catalog": {
+      "post": {
+        "summary": "List Stores",
+        "operationId": "list_stores_source_v1_stores_catalog_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreCatalogQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreCatalogResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/v1/stores/hours": {
+      "post": {
+        "summary": "Store Hours",
+        "operationId": "store_hours_source_v1_stores_hours_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HoursQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoursResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/v1/promotions/list": {
+      "post": {
+        "summary": "List Promotions",
+        "operationId": "list_promotions_source_v1_promotions_list_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromotionQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/v1/delivery/terms": {
+      "post": {
+        "summary": "Delivery Terms",
+        "operationId": "delivery_terms_source_v1_delivery_terms_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliveryResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/v1/inventory/lookup": {
+      "post": {
+        "summary": "Lookup Inventory",
+        "operationId": "lookup_inventory_source_v1_inventory_lookup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InventoryResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CatalogStore": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "aliases": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Aliases"
+          },
+          "schedule_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Schedule From"
+          },
+          "schedule_until": {
+            "type": "string",
+            "format": "date",
+            "title": "Schedule Until"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "aliases",
+          "schedule_from",
+          "schedule_until"
+        ],
+        "title": "CatalogStore"
+      },
+      "DeliveryQuery": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "enum": [
+              "delivery_terms",
+              "pickup_terms"
+            ],
+            "title": "Topic"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "topic"
+        ],
+        "title": "DeliveryQuery"
+      },
+      "DeliveryResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "not_found",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "delivery_terms",
+                  "pickup_terms"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourceStamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "DeliveryResult"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HoursQuery": {
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.-]+$",
+            "title": "Store Id"
+          },
+          "on_date": {
+            "type": "string",
+            "format": "date",
+            "title": "On Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "store_id",
+          "on_date"
+        ],
+        "title": "HoursQuery"
+      },
+      "HoursResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "store_unknown",
+              "date_unconfirmed",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "store_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Store Id"
+          },
+          "store_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Store Name"
+          },
+          "on_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Date"
+          },
+          "hours": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hours"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourceStamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "HoursResult"
+      },
+      "InventoryItem": {
+        "properties": {
+          "sku": {
+            "type": "string",
+            "title": "Sku"
+          },
+          "warehouse_id": {
+            "type": "string",
+            "title": "Warehouse Id"
+          },
+          "product_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Product Name"
+          },
+          "warehouse_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Warehouse Name"
+          },
+          "on_hand_quantity": {
+            "type": "string",
+            "title": "On Hand Quantity"
+          },
+          "reserved_quantity": {
+            "type": "string",
+            "title": "Reserved Quantity"
+          },
+          "available_quantity": {
+            "type": "string",
+            "title": "Available Quantity"
+          },
+          "unit": {
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 1,
+            "title": "Unit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sku",
+          "warehouse_id",
+          "product_name",
+          "warehouse_name",
+          "on_hand_quantity",
+          "reserved_quantity",
+          "available_quantity",
+          "unit"
+        ],
+        "title": "InventoryItem"
+      },
+      "InventoryQuery": {
+        "properties": {
+          "sku": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.-]+$",
+            "title": "Sku"
+          },
+          "warehouse_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.-]+$",
+            "title": "Warehouse Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sku",
+          "warehouse_id"
+        ],
+        "title": "InventoryQuery"
+      },
+      "InventoryResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "product_unknown",
+              "warehouse_unknown",
+              "stock_unknown",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "item": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InventoryItem"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InventorySource"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "InventoryResult"
+      },
+      "InventorySource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Until"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "title": "Synthetic"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "as_of",
+          "valid_until",
+          "synthetic"
+        ],
+        "title": "InventorySource"
+      },
+      "PolicyDocument": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "scenario": {
+            "type": "string",
+            "enum": [
+              "returns",
+              "complaints"
+            ],
+            "title": "Scenario"
+          },
+          "topic": {
+            "type": "string",
+            "enum": [
+              "steps",
+              "documents",
+              "conditions",
+              "complaint_procedure",
+              "complaint_review"
+            ],
+            "title": "Topic"
+          },
+          "channel": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "store",
+                  "website",
+                  "marketplace"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "all"
+              }
+            ],
+            "title": "Channel"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Text"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Until"
+          },
+          "approval_state": {
+            "type": "string",
+            "enum": [
+              "synthetic_demo",
+              "company_approved"
+            ],
+            "title": "Approval State"
+          },
+          "approved_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved By"
+          },
+          "approved_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "scenario",
+          "topic",
+          "channel",
+          "text",
+          "as_of",
+          "valid_until",
+          "approval_state"
+        ],
+        "title": "PolicyDocument"
+      },
+      "PolicyQuery": {
+        "properties": {
+          "scenario": {
+            "type": "string",
+            "enum": [
+              "returns",
+              "complaints"
+            ],
+            "title": "Scenario"
+          },
+          "topic": {
+            "type": "string",
+            "enum": [
+              "steps",
+              "documents",
+              "conditions",
+              "complaint_procedure",
+              "complaint_review"
+            ],
+            "title": "Topic"
+          },
+          "purchase_channel": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "store",
+                  "website",
+                  "marketplace"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purchase Channel"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario",
+          "topic"
+        ],
+        "title": "PolicyQuery"
+      },
+      "PolicyResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "needs_context",
+              "not_found",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "policy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PolicyDocument"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "missing_fields": {
+            "items": {
+              "type": "string",
+              "const": "purchase_channel"
+            },
+            "type": "array",
+            "title": "Missing Fields"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "PolicyResult"
+      },
+      "PromotionLine": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Text"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "all",
+              "restricted"
+            ],
+            "title": "Scope"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "scope"
+        ],
+        "title": "PromotionLine"
+      },
+      "PromotionQuery": {
+        "properties": {
+          "on_date": {
+            "type": "string",
+            "format": "date",
+            "title": "On Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "on_date"
+        ],
+        "title": "PromotionQuery"
+      },
+      "PromotionResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "on_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Date"
+          },
+          "promotions": {
+            "items": {
+              "$ref": "#/components/schemas/PromotionLine"
+            },
+            "type": "array",
+            "title": "Promotions"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourceStamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "PromotionResult"
+      },
+      "SourceStamp": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Until"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "title": "Synthetic"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "as_of",
+          "valid_until",
+          "synthetic"
+        ],
+        "title": "SourceStamp"
+      },
+      "StoreCatalogQuery": {
+        "properties": {},
+        "additionalProperties": false,
+        "type": "object",
+        "title": "StoreCatalogQuery",
+        "description": "Empty body. The caller does not send a customer utterance."
+      },
+      "StoreCatalogResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "unavailable"
+            ],
+            "title": "Status"
+          },
+          "stores": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogStore"
+            },
+            "type": "array",
+            "title": "Stores"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourceStamp"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "StoreCatalogResult"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

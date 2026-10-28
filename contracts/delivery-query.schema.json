@@ -1,0 +1,18 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "topic": {
+      "enum": [
+        "delivery_terms",
+        "pickup_terms"
+      ],
+      "title": "Topic",
+      "type": "string"
+    }
+  },
+  "required": [
+    "topic"
+  ],
+  "title": "DeliveryQuery",
+  "type": "object"
+}

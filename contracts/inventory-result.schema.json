@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "InventoryItem": {
+      "additionalProperties": false,
+      "properties": {
+        "sku": {
+          "title": "Sku",
+          "type": "string"
+        },
+        "warehouse_id": {
+          "title": "Warehouse Id",
+          "type": "string"
+        },
+        "product_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Product Name",
+          "type": "string"
+        },
+        "warehouse_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Warehouse Name",
+          "type": "string"
+        },
+        "on_hand_quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "On Hand Quantity"
+        },
+        "reserved_quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Reserved Quantity"
+        },
+        "available_quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Available Quantity"
+        },
+        "unit": {
+          "maxLength": 16,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sku",
+        "warehouse_id",
+        "product_name",
+        "warehouse_name",
+        "on_hand_quantity",
+        "reserved_quantity",
+        "available_quantity",
+        "unit"
+      ],
+      "title": "InventoryItem",
+      "type": "object"
+    },
+    "InventorySource": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "valid_until": {
+          "format": "date-time",
+          "title": "Valid Until",
+          "type": "string"
+        },
+        "synthetic": {
+          "title": "Synthetic",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "as_of",
+        "valid_until",
+        "synthetic"
+      ],
+      "title": "InventorySource",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "found",
+        "product_unknown",
+        "warehouse_unknown",
+        "stock_unknown",
+        "unavailable"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "item": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/InventoryItem"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "source": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/InventorySource"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "title": "InventoryResult",
+  "type": "object"
+}

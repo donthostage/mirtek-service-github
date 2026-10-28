@@ -1,0 +1,7 @@
+{
+  "additionalProperties": false,
+  "description": "Empty body. The caller does not send a customer utterance.",
+  "properties": {},
+  "title": "StoreCatalogQuery",
+  "type": "object"
+}

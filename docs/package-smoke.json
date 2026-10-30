@@ -1,0 +1,497 @@
+{
+  "label": "REAL LOOPBACK HTTP PULL WITH SYNTHETIC DATA; NOT COMPANY KPI",
+  "generated_at": "2026-10-30T12:25:08.562841+03:00",
+  "source_is_separate_process": true,
+  "llm_calls": false,
+  "company_connected": false,
+  "requests": [
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-1"
+      },
+      "response": {
+        "request_id": "58b7d96d-a1cb-4b41-9267-2301c01c284f",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-30T16:25:07.311948+07:00",
+            "valid_until": "2026-10-30T16:30:07.311948+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.311948+07:00",
+        "elapsed_ms": 30.852,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 37.118
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-2"
+      },
+      "response": {
+        "request_id": "0ea9460c-f345-4a3b-a2e5-01751678d5e3",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 2 (WH-DEMO-2): 0 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-30T16:25:07.334306+07:00",
+            "valid_until": "2026-10-30T16:30:07.334306+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.336320+07:00",
+        "elapsed_ms": 14.659,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 16.373
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10002",
+        "warehouse_id": "WH-DEMO-2"
+      },
+      "response": {
+        "request_id": "7e467552-2025-4532-81e4-87e0ca2ec6b8",
+        "status": "handoff",
+        "answer": "Достоверного остатка нет. Нужен оператор; сообщение сотруднику не отправлено.",
+        "reason_code": "missing_stock",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.347961+07:00",
+        "elapsed_ms": 14.516,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 16.061
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Есть артикул 10001 WH-DEMO-1?"
+      },
+      "response": {
+        "request_id": "ca5e6b0b-65c3-4fa6-ac09-f8367eb53219",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-30T16:25:07.367650+07:00",
+            "valid_until": "2026-10-30T16:30:07.367650+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.347961+07:00",
+        "elapsed_ms": 15.502,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 17.118
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как оформить возврат?"
+      },
+      "response": {
+        "request_id": "6229f6e4-0c1f-4902-a30e-07c255db37e9",
+        "status": "needs_clarification",
+        "answer": "Покупали в магазине, на сайте или на маркетплейсе?",
+        "reason_code": "missing_purchase_channel",
+        "intent": "returns",
+        "sources": [],
+        "context_id": "c6c823ea-58fb-4cb5-bf2e-c8b8175fec9a",
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.371666+07:00",
+        "elapsed_ms": 17.097,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 18.511
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "В магазине",
+        "context_id": "c6c823ea-58fb-4cb5-bf2e-c8b8175fec9a"
+      },
+      "response": {
+        "request_id": "b899d5a7-c68e-4535-8f24-fb44d3b94afc",
+        "status": "answered",
+        "answer": "Учебный порядок возврата покупки из магазина:\n1. Подготовьте название товара, дату покупки и описание причины возврата.\n2. Соберите товар и имеющееся подтверждение покупки; если его нет, укажите это в обращении.\n3. Передайте товар на проверку в магазин покупки и согласуйте способ обратной связи.\nЭти шаги описывают подачу обращения, а не одобрение возврата или обещание выплаты. Инструкция вымышленная, не правила Миртека.",
+        "reason_code": "source_answer",
+        "intent": "returns",
+        "sources": [
+          {
+            "id": "DEMO-returns-steps-store",
+            "version": "draft-3",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.378588+07:00",
+        "elapsed_ms": 13.874,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.44
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как оставить жалобу?"
+      },
+      "response": {
+        "request_id": "8678417a-3cbb-4224-bf81-6f8fe504fea9",
+        "status": "answered",
+        "answer": "Учебный порядок подачи жалобы:\n1. Укажите, где и когда произошла ситуация, и кратко опишите её.\n2. Добавьте номер покупки, если жалоба связана с заказом, и материалы, если они есть.\n3. Напишите, какого решения ожидаете и каким способом хотите получить ответ.\nЭто перечень для подготовки обращения; жалоба в демо не регистрируется, расследование и решение остаются за сотрудником. Инструкция вымышленная, не правила Миртека.",
+        "reason_code": "source_answer",
+        "intent": "complaints",
+        "sources": [
+          {
+            "id": "DEMO-complaints-complaint_procedure-all",
+            "version": "draft-3",
+            "as_of": "2026-10-23T00:00:00+07:00",
+            "valid_until": "2026-11-23T00:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.405406+07:00",
+        "elapsed_ms": 30.349,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 32.039
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Жалоба на обслуживание"
+      },
+      "response": {
+        "request_id": "af8cf220-e185-4c63-a98b-96d0d273335d",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "individual_review_required",
+        "intent": "complaints",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.437977+07:00",
+        "elapsed_ms": 0.098,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": {
+          "customer_text": "Жалоба на обслуживание",
+          "scenarios": [
+            "complaints"
+          ],
+          "reason_code": "individual_review_required",
+          "request_id": "af8cf220-e185-4c63-a98b-96d0d273335d",
+          "known_fields": {
+            "purchase_channel": null
+          }
+        },
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 2.138
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как работает S1 2026-10-29?"
+      },
+      "response": {
+        "request_id": "5a7cc6c6-817b-4baa-a3e9-de8080fea254",
+        "status": "answered",
+        "answer": "Учебный магазин Учебная, 1, 2026-10-29: 09:00–20:00.",
+        "reason_code": "source_answer",
+        "intent": "hours",
+        "sources": [
+          {
+            "id": "demo-store-hours",
+            "version": "1",
+            "as_of": "2026-10-22T09:00:00+07:00",
+            "valid_until": "2026-11-22T09:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.439976+07:00",
+        "elapsed_ms": 30.924,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 32.619
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Какие акции?"
+      },
+      "response": {
+        "request_id": "9bce7e39-a229-4389-a482-87a3bb6bb726",
+        "status": "answered",
+        "answer": "Учебная акция: скидка 5% на демонстрационный набор DEMO. Не является предложением ООО «Миртек».",
+        "reason_code": "source_answer",
+        "intent": "promotions",
+        "sources": [
+          {
+            "id": "demo-promotions-api",
+            "version": "1",
+            "as_of": "2026-10-22T09:00:00+07:00",
+            "valid_until": "2026-11-22T09:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.472008+07:00",
+        "elapsed_ms": 16.879,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 18.418
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Какие условия доставки?"
+      },
+      "response": {
+        "request_id": "7249dcac-cf7e-4c91-b7ec-e4bd582cc831",
+        "status": "answered",
+        "answer": "Учебные условия: базовая стоимость доставки — от 300 ₽, ориентир по сроку — 1–3 рабочих дня после подтверждения заказа. Итоговую цену и дату согласуют при оформлении с учётом адреса и состава заказа; это не расчёт конкретной доставки. Самовывоз оформляется отдельно и только после подтверждения заказа сотрудником. Все тарифы и сроки вымышлены, это не правила ООО «Миртек».",
+        "reason_code": "source_answer",
+        "intent": "delivery",
+        "sources": [
+          {
+            "id": "demo-delivery-api",
+            "version": "1",
+            "as_of": "2026-10-22T09:00:00+07:00",
+            "valid_until": "2026-11-22T09:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.485246+07:00",
+        "elapsed_ms": 14.203,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.735
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Как забрать покупку?"
+      },
+      "response": {
+        "request_id": "3f5480f7-df7a-4308-a9e5-7a47438e30d9",
+        "status": "answered",
+        "answer": "Учебные условия: самовывоз возможен только после подтверждения заказа сотрудником. Наличие на складе самовывоз не подтверждает. Это не правила ООО «Миртек».",
+        "reason_code": "source_answer",
+        "intent": "delivery",
+        "sources": [
+          {
+            "id": "demo-delivery-api",
+            "version": "1",
+            "as_of": "2026-10-22T09:00:00+07:00",
+            "valid_until": "2026-11-22T09:00:00+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.505970+07:00",
+        "elapsed_ms": 14.064,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.613
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Есть 10001-2 WH-DEMO-1?"
+      },
+      "response": {
+        "request_id": "e0c8e1f1-f477-4757-9e81-bce153dd5f0b",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "unknown_product",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.512159+07:00",
+        "elapsed_ms": 14.202,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.823
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Есть артикул 10001 WH-DEMO-1.2?"
+      },
+      "response": {
+        "request_id": "2f99e1b0-f0f2-43c3-96f0-2c4e6eaf7299",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "unknown_warehouse",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.537281+07:00",
+        "elapsed_ms": 14.209,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 15.743
+    },
+    {
+      "path": "/api/v1/messages",
+      "request": {
+        "text": "Есть артикул 10001 и 10002 WH-DEMO-1?"
+      },
+      "response": {
+        "request_id": "d3ffc574-c474-4ad7-9d60-d33bfbd482d0",
+        "status": "needs_clarification",
+        "answer": "Укажите один артикул товара.",
+        "reason_code": "ambiguous_product",
+        "intent": "stock",
+        "sources": [],
+        "context_id": "f667b969-e826-4827-ab08-dbd84f76a6b3",
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:07.545537+07:00",
+        "elapsed_ms": 0.083,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "lexical-1"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 1.438
+    },
+    {
+      "path": "/api/v1/availability",
+      "request": {
+        "sku": "10001",
+        "warehouse_id": "WH-DEMO-1"
+      },
+      "response": {
+        "request_id": "e603360c-bc7a-46d4-821e-b522418b8f48",
+        "status": "handoff",
+        "answer": "Не удалось подтвердить остаток. Нужен оператор; сообщение сотруднику не отправлено.",
+        "reason_code": "source_timeout",
+        "intent": "stock",
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_rule_baseline",
+        "evaluated_at": "2026-10-30T16:25:08.561653+07:00",
+        "elapsed_ms": 1001.764,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "not_used"
+      },
+      "matched": true,
+      "tcp_elapsed_ms": 1003.882
+    }
+  ],
+  "passed": true
+}

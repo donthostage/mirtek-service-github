@@ -57,7 +57,7 @@ def test_semantic_parameters_drive_http_source_without_lexical_sku_pattern(api_s
         return semantic('stock',topic='stock',sku={'text':'10001'},warehouse_id={'text':'WH-DEMO-1'})
     r=ask(service(parser_with(handler),api_source),'Проверьте 10001 для WH-DEMO-1, сколько доступно?')
     assert r.status=='answered' and '12.5 м' in r.answer
-    assert r.recognizer_version=='mirtek-semantic-1' and r.data_backend=='http_pull_mock'
+    assert r.recognizer_version=='mirtek-semantic-2' and r.data_backend=='http_pull_mock'
 
 
 @pytest.mark.parametrize('slot,value,text',[
@@ -193,3 +193,171 @@ def test_schema_contract_not_just_json_validity(mutation):
     if mutation=='unknown_field': payload['approved_refund']=True
     if mutation=='string_boolean': payload['uncertain']='false'
     assert parser_with(lambda p,b:payload).classify('Как оформить возврат?').reason=='model_invalid_response'
+
+
+@pytest.mark.parametrize('effort', [None, 'none', 'low'])
+def test_reasoning_control_is_explicit_and_schema_is_preserved(effort):
+    def handle(payload, body):
+        if effort is None:
+            assert 'reasoning' not in body
+        else:
+            assert body['reasoning'] == {'effort': effort}
+        assert body['response_format']['type'] == 'json_schema'
+        assert body['max_tokens'] == 1200
+        return semantic('complaints', topic='complaint_procedure')
+    parser = parser_with(handle)
+    parser.reasoning_effort = effort
+    assert parser.classify('Как оставить жалобу?').reason is None
+
+
+@pytest.mark.parametrize('text,channel', [('В магазине','store'),('На сайте','website'),
+                                        ('На маркетплейсе','marketplace')])
+def test_offered_purchase_channel_choice_needs_no_model(text, channel, api_source):
+    calls=[]
+    def handle(payload,body):
+        calls.append(payload)
+        assert len(calls)==1, 'Exact offered choice must not be sent to the model again'
+        return semantic()
+    s=service(parser_with(handle),api_source)
+    first=ask(s,'Как оформить возврат?')
+    reply=ask(s,text,first.context_id)
+    assert first.reason_code=='missing_purchase_channel'
+    assert reply.status=='answered' and reply.sources[0].id==f'DEMO-returns-steps-{channel}'
+    assert len(calls)==1
+
+
+@pytest.mark.parametrize('text', ['В магазине мне отказали, разберитесь',
+                               'В магазине или на сайте', 'Не в магазине'])
+def test_freeform_or_ambiguous_reply_is_not_replaced_by_a_choice(text):
+    calls=[]
+    def handle(payload,body):
+        calls.append(payload)
+        return semantic(kind='individual_case',topic=None)
+    parser=parser_with(handle)
+    result=parser.classify(text,pending_intent='returns',
+                          pending_context={'pending_field':'missing_purchase_channel'})
+    assert len(calls)==1 and result.semantic.request_kind=='individual_case'
+
+
+def test_information_about_general_delivery_price_reaches_source(api_source):
+    parser=parser_with(lambda p,b:semantic('delivery',topic='delivery_terms'))
+    reply=ask(service(parser,api_source),'Подскажите мне, сколько стоит доставка?')
+    assert reply.status=='answered' and 'от 300 ₽' in reply.answer
+    assert 'вымышлены' in reply.answer and reply.sources[0].id=='demo-delivery-api'
+
+
+def test_specific_destination_is_not_quoted_as_general_price(api_source):
+    parser=parser_with(lambda p,b:semantic('delivery',topic='delivery_terms'))
+    reply=ask(service(parser,api_source),'Сколько стоит доставка в Москву?')
+    assert reply.status=='handoff' and not reply.sources
+
+
+def test_standalone_warehouse_reply_does_not_need_second_model_call(api_source):
+    calls=[]
+    def handle(payload,body):
+        calls.append(payload)
+        assert len(calls)==1
+        return semantic('stock',topic='stock',sku={'text':'10001'})
+    s=service(parser_with(handle),api_source)
+    first=ask(s,'Есть артикул 10001?')
+    second=ask(s,'WH-DEMO-1',first.context_id)
+    assert second.status=='answered' and second.sources[0].id=='demo-warehouse-api'
+    assert len(calls)==1
+
+
+def test_uncertain_linked_scenarios_are_preserved_without_answering(api_source):
+    payload=semantic(kind='individual_case',topic=None)
+    payload.update(intents=['returns','complaints'], uncertain=True)
+    reply=ask(service(parser_with(lambda p,b:payload),api_source),'Возврат и жалоба')
+    assert reply.status=='handoff' and reply.reason_code=='multiple_intents'
+    assert set(reply.handoff_payload['scenarios'])=={'returns','complaints'}
+    assert not reply.sources and not reply.handoff_delivered
+
+
+@pytest.mark.parametrize('field,quote,expected,text', [
+    ('sku','артикул 99999','99999','Есть артикул 99999 WH-DEMO-1?'),
+    ('warehouse_id','склад WH-DEMO-1','WH-DEMO-1','Проверьте склад WH-DEMO-1'),
+])
+def test_grounded_parameter_label_can_be_removed_without_inventing_id(field,quote,expected,text):
+    result=SemanticResult.model_validate(semantic('stock',topic='stock',**{field:{'text':quote}}))
+    result.check_grounding(text)
+    assert getattr(result.slots,field).text==expected
+
+
+@pytest.mark.parametrize('quote,text', [
+    ('артикул 10001','артикул 10001-2'),
+    ('артикул 10001','артикул 99999'),
+    ('10001 и 10002','10001 и 10002'),
+])
+def test_parameter_normalization_never_selects_partial_missing_or_multiple_ids(quote,text):
+    result=SemanticResult.model_validate(semantic('stock',topic='stock',sku={'text':quote}))
+    with pytest.raises(ValueError): result.check_grounding(text)
+
+
+def test_grounded_sku_and_warehouse_quote_keeps_the_two_fields_separate():
+    value=semantic('stock',topic='stock',sku={'text':'99999 WH-DEMO-1'},
+                   warehouse_id={'text':'WH-DEMO-1'})
+    parsed=SemanticResult.model_validate(value).check_grounding('Есть артикул 99999 WH-DEMO-1?')
+    assert parsed.slots.sku.text=='99999' and parsed.slots.warehouse_id.text=='WH-DEMO-1'
+
+
+def test_uncertain_information_asks_confirmation_then_reads_source(api_source):
+    calls=[]
+    def handle(payload,body):
+        calls.append(payload)
+        assert len(calls)==1
+        value=semantic('hours',topic='hours',store={'text':'S1'})
+        value['uncertain']=True
+        return value
+    s=service(parser_with(handle),api_source,clock=lambda:datetime.fromisoformat('2026-10-29T12:00:00+07:00'))
+    first=ask(s,'Как работает S1?')
+    assert first.status=='needs_clarification' and first.reason_code=='confirm_intent'
+    assert not first.sources
+    reply=ask(s,'Да',first.context_id)
+    assert reply.status=='answered' and reply.sources[0].id=='demo-store-hours'
+    assert len(calls)==1
+
+
+def test_rejected_intent_confirmation_discards_old_pending_question(api_source):
+    payload=semantic('hours',topic='hours',store={'text':'S1'}); payload['uncertain']=True
+    s=service(parser_with(lambda p,b:payload),api_source)
+    first=ask(s,'Как работает S1?')
+    reply=ask(s,'Нет',first.context_id)
+    assert reply.status=='needs_clarification' and reply.reason_code=='rephrase_question'
+    assert reply.context_id is None and not reply.sources
+
+
+def test_explicit_warehouse_is_not_requested_again_when_model_omits_it(api_source):
+    parser=parser_with(lambda p,b:semantic('stock',topic='stock',sku={'text':'99999'}))
+    reply=ask(service(parser,api_source),'Есть артикул 99999 WH-DEMO-1?')
+    assert reply.status=='handoff' and reply.reason_code=='unknown_product'
+
+
+def test_model_cannot_hide_second_explicit_product(api_source):
+    parser=parser_with(lambda p,b:semantic('stock',topic='stock',sku={'text':'10001'},
+                                         warehouse_id={'text':'WH-DEMO-1'}))
+    reply=ask(service(parser,api_source),'Есть артикул 10001 и 10002 WH-DEMO-1?')
+    assert reply.status=='needs_clarification' and reply.reason_code=='ambiguous_product'
+
+
+def test_pending_store_id_needs_no_model_call(api_source):
+    def handler(payload, body):
+        assert payload['text'] != 'S1'
+        return semantic('hours', topic='hours', requested_date={'text':'2026-10-29'})
+    svc=service(parser_with(handler),api_source)
+    first=ask(svc,'Нужны часы работы магазина на 2026-10-29.')
+    assert first.reason_code=='missing_store'
+    final=ask(svc,'S1',first.context_id)
+    assert final.status=='answered'
+
+
+def test_uncertain_multiple_warehouses_clarifies_without_losing_sku(api_source):
+    def handler(payload, body):
+        parsed=semantic('stock',topic='stock')
+        parsed['uncertain']=True
+        return parsed
+    svc=service(parser_with(handler),api_source)
+    first=ask(svc,'Проверьте 10001 на WH-DEMO-1 и WH-DEMO-2.')
+    assert first.reason_code=='ambiguous_warehouse'
+    final=ask(svc,'WH-DEMO-1',first.context_id)
+    assert final.status=='answered' and '12.5' in final.answer

@@ -407,6 +407,25 @@
         "title": "HoursQuery"
       },
       "HoursResult": {
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "found"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "hours"
+              ]
+            }
+          }
+        ],
         "properties": {
           "status": {
             "type": "string",
@@ -874,6 +893,25 @@
         "title": "PromotionQuery"
       },
       "PromotionResult": {
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "found"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "required": [
+                "promotions"
+              ]
+            }
+          }
+        ],
         "properties": {
           "status": {
             "type": "string",

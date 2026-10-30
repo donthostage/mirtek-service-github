@@ -1,0 +1,160 @@
+{
+  "label": "LIVE LLM AGAINST SYNTHETIC SOURCES; OPEN DEVELOPMENT SET; NOT COMPANY ACCEPTANCE",
+  "started_at": "2026-10-29T15:46:04.334027+00:00",
+  "health": {
+    "status": "ok",
+    "mode": "synthetic_aitunnel",
+    "company_connected": false,
+    "model_configured": true,
+    "source_backend": "http_pull_mock",
+    "model_timeout_seconds": 15.0,
+    "reasoning_effort": "none",
+    "request_timeout_seconds": 18.0,
+    "timing_profile": "diagnostic",
+    "recognizer_version": "mirtek-semantic-2"
+  },
+  "real_llm_calls": true,
+  "company_connected": false,
+  "real_kpi_verified": false,
+  "planned_steps": 4,
+  "concurrent_dialogs": 1,
+  "cost_rub": null,
+  "limitations": [
+    "Open synthetic examples are not company control data.",
+    "Diagnostic timeout is not proof of the five-second KPI.",
+    "Cost is unknown; null does not mean free."
+  ],
+  "requests": [
+    {
+      "case": "stock",
+      "step": 1,
+      "question": "Есть артикул 10001?",
+      "expected_status": "needs_clarification",
+      "expected_source_id": null,
+      "matched": true,
+      "actual": {
+        "request_id": "dde8983f-9d72-46c2-9aa4-c10da746eb88",
+        "status": "needs_clarification",
+        "answer": "Укажите один идентификатор склада. В демо: WH-DEMO-1 или WH-DEMO-2. Адрес магазина не определяет склад автоматически.",
+        "reason_code": "missing_warehouse",
+        "intent": "stock",
+        "sources": [],
+        "context_id": "177d99b1-c21e-4fb9-a43a-77009d65db07",
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_aitunnel",
+        "evaluated_at": "2026-10-29T22:46:04.347318+07:00",
+        "elapsed_ms": 4041.808,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "mirtek-semantic-2"
+      },
+      "http_elapsed_ms": 4045.827
+    },
+    {
+      "case": "stock",
+      "step": 2,
+      "question": "WH-DEMO-1",
+      "expected_status": "answered",
+      "expected_source_id": "demo-warehouse-api",
+      "matched": true,
+      "actual": {
+        "request_id": "d42a837f-e117-4530-9a70-1c5a73d07a80",
+        "status": "answered",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "reason_code": "source_answer",
+        "intent": "stock",
+        "sources": [
+          {
+            "id": "demo-warehouse-api",
+            "version": "1",
+            "as_of": "2026-10-29T22:46:08.400225+07:00",
+            "valid_until": "2026-10-29T22:51:08.400225+07:00",
+            "synthetic": true
+          }
+        ],
+        "context_id": null,
+        "operator_required": false,
+        "handoff_delivered": false,
+        "mode": "synthetic_aitunnel",
+        "evaluated_at": "2026-10-29T22:46:08.393043+07:00",
+        "elapsed_ms": 18.826,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "mirtek-semantic-2"
+      },
+      "http_elapsed_ms": 20.965
+    },
+    {
+      "case": "hours",
+      "step": 1,
+      "question": "Как работает S1 2026-10-29?",
+      "expected_status": "answered",
+      "expected_source_id": "demo-store-hours",
+      "matched": false,
+      "actual": {
+        "request_id": "0b8be0a3-5cf6-43dd-8ce3-64f95752cd34",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "uncertain_intent",
+        "intent": null,
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_aitunnel",
+        "evaluated_at": "2026-10-29T22:46:08.413680+07:00",
+        "elapsed_ms": 1837.884,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": null,
+        "recognizer_version": "mirtek-semantic-2"
+      },
+      "http_elapsed_ms": 1840.175
+    },
+    {
+      "case": "linked",
+      "step": 1,
+      "question": "Хочу оформить возврат и пожаловаться на обслуживание",
+      "expected_status": "handoff",
+      "expected_source_id": null,
+      "matched": true,
+      "actual": {
+        "request_id": "5d057ddd-c18d-4568-afb6-da95bc091567",
+        "status": "handoff",
+        "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
+        "reason_code": "multiple_intents",
+        "intent": null,
+        "sources": [],
+        "context_id": null,
+        "operator_required": true,
+        "handoff_delivered": false,
+        "mode": "synthetic_aitunnel",
+        "evaluated_at": "2026-10-29T22:46:10.265633+07:00",
+        "elapsed_ms": 2181.732,
+        "data_backend": "http_pull_mock",
+        "handoff_payload": {
+          "request_id": "5d057ddd-c18d-4568-afb6-da95bc091567",
+          "scenarios": [
+            "returns",
+            "complaints"
+          ],
+          "customer_text": "Хочу оформить возврат и пожаловаться на обслуживание",
+          "reason_code": "multiple_intents"
+        },
+        "recognizer_version": "mirtek-semantic-2"
+      },
+      "http_elapsed_ms": 2195.325
+    }
+  ],
+  "summary": {
+    "cases": 3,
+    "planned_steps": 4,
+    "recorded_steps": 4,
+    "matched_steps": 3,
+    "passed": false,
+    "within_5s": 4,
+    "p50_ms": 2017.75,
+    "p95_ms": 4045.827
+  },
+  "finished_at": "2026-10-29T15:46:12.449866+00:00"
+}

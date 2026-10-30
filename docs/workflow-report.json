@@ -19,7 +19,7 @@
   "matched_steps": 36,
   "passed": true,
   "recorded_model_requests": 35,
-  "mock_source_requests": 15,
+  "mock_source_requests": 24,
   "results": [
     {
       "case_id": "return-followup",
@@ -32,25 +32,25 @@
         "reason_code": "missing_purchase_channel"
       },
       "actual": {
-        "request_id": "54ae2939-d754-4915-8fef-f478ec3ac025",
+        "request_id": "69610c11-5a66-4a86-b72e-dba8c9d9bd48",
         "status": "needs_clarification",
         "answer": "Покупали в магазине, на сайте или на маркетплейсе?",
         "reason_code": "missing_purchase_channel",
         "intent": "returns",
         "sources": [],
-        "context_id": "10860141-75c6-4f58-a89c-a2db999d10a5",
+        "context_id": "ca73db34-ead8-4f87-9995-624262ab4b8a",
         "operator_required": false,
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 38.273,
+        "elapsed_ms": 12.967,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 41.323
+      "in_process_ms": 17.339
     },
     {
       "case_id": "return-followup",
@@ -63,15 +63,15 @@
         "source_id": "DEMO-returns-steps-store"
       },
       "actual": {
-        "request_id": "5ec49dc4-4441-489a-b8fd-afc6a269fe2a",
+        "request_id": "c558ba5e-b9d0-4c0a-85af-7850cffcff77",
         "status": "answered",
-        "answer": "Учебный пример для покупки в магазине: подготовьте описание покупки и обратитесь к сотруднику для рассмотрения возврата. Это вымышленная инструкция, не правила Миртека.",
+        "answer": "Учебный порядок возврата покупки из магазина:\n1. Подготовьте название товара, дату покупки и описание причины возврата.\n2. Соберите товар и имеющееся подтверждение покупки; если его нет, укажите это в обращении.\n3. Передайте товар на проверку в магазин покупки и согласуйте способ обратной связи.\nЭти шаги описывают подачу обращения, а не одобрение возврата или обещание выплаты. Инструкция вымышленная, не правила Миртека.",
         "reason_code": "source_answer",
         "intent": "returns",
         "sources": [
           {
             "id": "DEMO-returns-steps-store",
-            "version": "draft-1",
+            "version": "draft-2",
             "as_of": "2026-10-23T00:00:00+07:00",
             "valid_until": "2026-11-23T00:00:00+07:00",
             "synthetic": true
@@ -82,14 +82,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 5.24,
+        "elapsed_ms": 7.491,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 7.016
+      "in_process_ms": 9.817
     },
     {
       "case_id": "return-documents",
@@ -102,15 +102,15 @@
         "source_id": "DEMO-returns-documents-all"
       },
       "actual": {
-        "request_id": "73d40f9f-5421-4d5b-9353-1c70043321e1",
+        "request_id": "5ae59b26-a977-4f40-8797-d42aba7d0719",
         "status": "answered",
-        "answer": "Учебный пример: сотруднику понадобится описание покупки и причины обращения. Конкретный перечень документов для реального возврата должен предоставить Миртек.",
+        "answer": "Учебный список сведений для обращения: товар, дата и место покупки, причина возврата, номер заказа или имеющееся подтверждение покупки. При повреждении можно приложить фотографии. Если части сведений нет, укажите это; автоматического отказа из-за отсутствующего документа демо не делает. Список вымышленный и требует подтверждения Миртеком.",
         "reason_code": "source_answer",
         "intent": "returns",
         "sources": [
           {
             "id": "DEMO-returns-documents-all",
-            "version": "draft-1",
+            "version": "draft-2",
             "as_of": "2026-10-23T00:00:00+07:00",
             "valid_until": "2026-11-23T00:00:00+07:00",
             "synthetic": true
@@ -121,14 +121,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 4.577,
+        "elapsed_ms": 6.882,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.161
+      "in_process_ms": 9.051
     },
     {
       "case_id": "individual-return",
@@ -141,7 +141,7 @@
         "reason_code": "individual_review_required"
       },
       "actual": {
-        "request_id": "722073a0-3064-4387-ae5d-f128a0f00201",
+        "request_id": "92f08c0a-0a63-445e-9601-4eee3ffbb706",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "individual_review_required",
@@ -152,21 +152,21 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.676,
+        "elapsed_ms": 2.775,
         "data_backend": "http_pull_mock",
         "handoff_payload": {
-          "request_id": "722073a0-3064-4387-ae5d-f128a0f00201",
+          "request_id": "92f08c0a-0a63-445e-9601-4eee3ffbb706",
           "scenarios": [
             "returns"
           ],
           "customer_text": "Хочу вернуть деньги",
           "reason_code": "individual_review_required"
         },
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.139
+      "in_process_ms": 5.12
     },
     {
       "case_id": "complaint-procedure",
@@ -179,15 +179,15 @@
         "source_id": "DEMO-complaints-complaint_procedure-all"
       },
       "actual": {
-        "request_id": "9b0618a7-4c03-44fb-b1e7-56674383b27a",
+        "request_id": "4e037024-d777-41f3-8fee-74aed6c53b22",
         "status": "answered",
-        "answer": "Учебный пример подачи жалобы: опишите, что произошло и какого решения ожидаете. Для рассмотрения нужен сотрудник. Жалоба этим сообщением не регистрируется. Это вымышленная инструкция.",
+        "answer": "Учебный порядок подачи жалобы:\n1. Укажите, где и когда произошла ситуация, и кратко опишите её.\n2. Добавьте номер покупки, если жалоба связана с заказом, и материалы, если они есть.\n3. Напишите, какого решения ожидаете и каким способом хотите получить ответ.\nЭто перечень для подготовки обращения; жалоба в демо не регистрируется, расследование и решение остаются за сотрудником. Инструкция вымышленная, не правила Миртека.",
         "reason_code": "source_answer",
         "intent": "complaints",
         "sources": [
           {
             "id": "DEMO-complaints-complaint_procedure-all",
-            "version": "draft-1",
+            "version": "draft-2",
             "as_of": "2026-10-23T00:00:00+07:00",
             "valid_until": "2026-11-23T00:00:00+07:00",
             "synthetic": true
@@ -198,14 +198,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 5.056,
+        "elapsed_ms": 7.306,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.811
+      "in_process_ms": 9.504
     },
     {
       "case_id": "individual-complaint",
@@ -218,7 +218,7 @@
         "reason_code": "individual_review_required"
       },
       "actual": {
-        "request_id": "cb6915fc-876b-4213-b7da-02187810d21f",
+        "request_id": "071535b0-56ec-4001-a19b-e263423bf415",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "individual_review_required",
@@ -229,21 +229,21 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.978,
+        "elapsed_ms": 2.991,
         "data_backend": "http_pull_mock",
         "handoff_payload": {
-          "request_id": "cb6915fc-876b-4213-b7da-02187810d21f",
+          "request_id": "071535b0-56ec-4001-a19b-e263423bf415",
           "scenarios": [
             "complaints"
           ],
           "customer_text": "Мне нагрубили, хочу пожаловаться",
           "reason_code": "individual_review_required"
         },
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.643
+      "in_process_ms": 5.235
     },
     {
       "case_id": "linked-complaint-return",
@@ -259,7 +259,7 @@
         ]
       },
       "actual": {
-        "request_id": "fc36c933-3ef3-4f2d-8712-58d7608aa752",
+        "request_id": "97c2980f-1623-45b2-920c-d6a8b77306fe",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "multiple_intents",
@@ -270,10 +270,10 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.755,
+        "elapsed_ms": 3.045,
         "data_backend": "http_pull_mock",
         "handoff_payload": {
-          "request_id": "fc36c933-3ef3-4f2d-8712-58d7608aa752",
+          "request_id": "97c2980f-1623-45b2-920c-d6a8b77306fe",
           "scenarios": [
             "returns",
             "complaints"
@@ -281,11 +281,11 @@
           "customer_text": "Брак, хочу возврат и жалобу",
           "reason_code": "multiple_intents"
         },
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.155
+      "in_process_ms": 5.569
     },
     {
       "case_id": "stock-available",
@@ -299,9 +299,9 @@
         "source_id": "demo-warehouse-api"
       },
       "actual": {
-        "request_id": "d1cf0e7d-f0b4-43c4-8f3e-4e390d7e8174",
+        "request_id": "e4192288-3a0a-4229-af0c-763b854d426e",
         "status": "answered",
-        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
         "reason_code": "source_answer",
         "intent": "stock",
         "sources": [
@@ -318,14 +318,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 5.396,
+        "elapsed_ms": 9.153,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.872
+      "in_process_ms": 11.397
     },
     {
       "case_id": "stock-zero",
@@ -338,7 +338,7 @@
         "contains": ": 0 м"
       },
       "actual": {
-        "request_id": "ceba4c5c-12f8-4de0-bb69-6b20ba30fcb1",
+        "request_id": "cd1f34ba-0bda-4518-b6c9-995e13f3296d",
         "status": "answered",
         "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 2 (WH-DEMO-2): 0 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
         "reason_code": "source_answer",
@@ -357,14 +357,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 6.262,
+        "elapsed_ms": 18.065,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 7.657
+      "in_process_ms": 20.388
     },
     {
       "case_id": "stock-unknown-not-zero",
@@ -377,7 +377,7 @@
         "reason_code": "missing_stock"
       },
       "actual": {
-        "request_id": "cae5b354-b863-4207-a302-65c18835ce05",
+        "request_id": "ca5c82db-a19b-4dd0-93e6-2a6cf484f52e",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "missing_stock",
@@ -388,14 +388,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 4.464,
+        "elapsed_ms": 7.679,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.0
+      "in_process_ms": 10.002
     },
     {
       "case_id": "stock-followup",
@@ -408,25 +408,25 @@
         "reason_code": "missing_warehouse"
       },
       "actual": {
-        "request_id": "34eba0f2-2c40-4c86-902b-ebbfbc9c970c",
+        "request_id": "00f1a30d-4c54-4569-b08f-e1d3e6963a8a",
         "status": "needs_clarification",
         "answer": "Укажите один идентификатор склада. В демо: WH-DEMO-1 или WH-DEMO-2. Адрес магазина не определяет склад автоматически.",
         "reason_code": "missing_warehouse",
         "intent": "stock",
         "sources": [],
-        "context_id": "34cd6133-41db-4a78-bfff-9123ab531a60",
+        "context_id": "75adc262-f76a-4f83-afef-79a67ba670d7",
         "operator_required": false,
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.807,
+        "elapsed_ms": 3.473,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.373
+      "in_process_ms": 5.776
     },
     {
       "case_id": "stock-followup",
@@ -439,9 +439,9 @@
         "contains": "12.5 м"
       },
       "actual": {
-        "request_id": "272eeadd-c809-4dcf-b701-03fd7ec5df61",
+        "request_id": "6182852e-a188-4d45-9410-5593bcb1d68a",
         "status": "answered",
-        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
         "reason_code": "source_answer",
         "intent": "stock",
         "sources": [
@@ -458,14 +458,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 4.933,
+        "elapsed_ms": 7.485,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.676
+      "in_process_ms": 9.791
     },
     {
       "case_id": "product-unknown",
@@ -478,7 +478,7 @@
         "reason_code": "unknown_product"
       },
       "actual": {
-        "request_id": "8482ff4a-5bdd-4f9e-9144-81e2973ed9d0",
+        "request_id": "b9fd13e3-027b-463b-bd96-d1d34be17222",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "unknown_product",
@@ -489,14 +489,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 4.417,
+        "elapsed_ms": 7.27,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 5.862
+      "in_process_ms": 9.472
     },
     {
       "case_id": "warehouse-unknown",
@@ -509,7 +509,7 @@
         "reason_code": "unknown_warehouse"
       },
       "actual": {
-        "request_id": "613ed585-bcf9-42a2-a1be-349a7e1bbf8d",
+        "request_id": "b22708a1-7147-4a92-84d0-6eb1157c1c07",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "unknown_warehouse",
@@ -520,14 +520,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 6.462,
+        "elapsed_ms": 6.839,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 8.01
+      "in_process_ms": 8.923
     },
     {
       "case_id": "warehouse-invented",
@@ -539,7 +539,7 @@
         "reason_code": "model_invalid_response"
       },
       "actual": {
-        "request_id": "bbed92ac-172a-4633-b111-15a1b9adca0d",
+        "request_id": "432a618d-818f-4ab7-8dcd-13c4fee0b4ad",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "model_invalid_response",
@@ -550,14 +550,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.911,
+        "elapsed_ms": 3.139,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.345
+      "in_process_ms": 5.484
     },
     {
       "case_id": "identifier-partial",
@@ -569,7 +569,7 @@
         "reason_code": "model_invalid_response"
       },
       "actual": {
-        "request_id": "8b8d8cc6-ea04-44d7-9162-65f1de01eab3",
+        "request_id": "100e74a2-6f77-4030-888d-7f1390835a91",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "model_invalid_response",
@@ -580,14 +580,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.852,
+        "elapsed_ms": 3.214,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.328
+      "in_process_ms": 5.386
     },
     {
       "case_id": "future-stock",
@@ -600,7 +600,7 @@
         "reason_code": "future_stock_unknown"
       },
       "actual": {
-        "request_id": "5a772534-04b8-4877-bf88-841306d294f4",
+        "request_id": "9bf26821-3ac8-4713-9085-76cfbb17b4e0",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "future_stock_unknown",
@@ -611,14 +611,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.756,
+        "elapsed_ms": 3.06,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.221
+      "in_process_ms": 5.129
     },
     {
       "case_id": "hours-special-closure",
@@ -631,14 +631,14 @@
         "contains": "2026-10-23: закрыт"
       },
       "actual": {
-        "request_id": "a52d17f7-9ae3-4e69-8f7d-c26649e0e0af",
+        "request_id": "05083cd2-bc41-4576-873d-29d308de3ba2",
         "status": "answered",
         "answer": "Учебный магазин Учебная, 1, 2026-10-23: закрыт.",
         "reason_code": "source_answer",
         "intent": "hours",
         "sources": [
           {
-            "id": "demo-stores",
+            "id": "demo-store-hours",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -650,14 +650,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 3.077,
+        "elapsed_ms": 11.945,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 5.234
+      "in_process_ms": 14.158
     },
     {
       "case_id": "hours-weekend",
@@ -670,14 +670,14 @@
         "contains": "2026-10-24: 10:00–17:00"
       },
       "actual": {
-        "request_id": "5c7af375-bc68-4637-b5de-713d86adc4db",
+        "request_id": "4bfdfdcd-6efc-4cd8-b0a9-b0b429c530a4",
         "status": "answered",
         "answer": "Учебный магазин Примерная, 2, 2026-10-24: 10:00–17:00.",
         "reason_code": "source_answer",
         "intent": "hours",
         "sources": [
           {
-            "id": "demo-stores",
+            "id": "demo-store-hours",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -689,14 +689,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.22,
+        "elapsed_ms": 10.853,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.764
+      "in_process_ms": 13.028
     },
     {
       "case_id": "hours-weekday",
@@ -709,14 +709,14 @@
         "contains": "2026-10-26: 10:00–19:00"
       },
       "actual": {
-        "request_id": "33a19984-c598-42a1-9734-fa80b4c79185",
+        "request_id": "33f949ee-e84f-4b06-a10e-03d64aef741b",
         "status": "answered",
         "answer": "Учебный магазин Примерная, 2, 2026-10-26: 10:00–19:00.",
         "reason_code": "source_answer",
         "intent": "hours",
         "sources": [
           {
-            "id": "demo-stores",
+            "id": "demo-store-hours",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -728,14 +728,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.307,
+        "elapsed_ms": 10.423,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.937
+      "in_process_ms": 12.589
     },
     {
       "case_id": "hours-ambiguous-date",
@@ -748,7 +748,7 @@
         "reason_code": "unsupported_date"
       },
       "actual": {
-        "request_id": "c30b3243-c738-45bd-bc2e-2300d81285b5",
+        "request_id": "1e664954-6122-4142-b462-9be3bc92943b",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "unsupported_date",
@@ -759,14 +759,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.075,
+        "elapsed_ms": 3.323,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.639
+      "in_process_ms": 5.528
     },
     {
       "case_id": "promotions-current",
@@ -779,14 +779,14 @@
         "contains": "5%"
       },
       "actual": {
-        "request_id": "d3c74340-1946-4370-8d83-d251a5138916",
+        "request_id": "c6caab69-0cb3-45f8-97d9-7a1577eddf40",
         "status": "answered",
         "answer": "Учебная акция: скидка 5% на демонстрационный набор DEMO. Не является предложением ООО «Миртек».",
         "reason_code": "source_answer",
         "intent": "promotions",
         "sources": [
           {
-            "id": "demo-promotions",
+            "id": "demo-promotions-api",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -798,14 +798,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 3.06,
+        "elapsed_ms": 8.541,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 5.342
+      "in_process_ms": 10.76
     },
     {
       "case_id": "promotions-future",
@@ -818,7 +818,7 @@
         "reason_code": "unsupported_date"
       },
       "actual": {
-        "request_id": "e29a31b2-f53b-4eab-bae1-fab936d7120e",
+        "request_id": "64dc993f-b426-4950-b954-ae77361de9ae",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "unsupported_date",
@@ -829,14 +829,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.123,
+        "elapsed_ms": 3.225,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.815
+      "in_process_ms": 5.404
     },
     {
       "case_id": "delivery-general",
@@ -849,14 +849,14 @@
         "contains": "после подтверждения"
       },
       "actual": {
-        "request_id": "8eae01c6-9488-4893-b333-1f8e1ad03220",
+        "request_id": "bda45a5f-b018-4666-8d8e-a479b5b697c2",
         "status": "answered",
-        "answer": "Учебные условия: доступен самовывоз после подтверждения заказа оператором. Возможность, стоимость и сроки доставки уточняет оператор. Это вымышленные условия для демонстрации, не правила ООО «Миртек».",
+        "answer": "Учебные условия: базовая стоимость доставки — от 300 ₽, ориентир по сроку — 1–3 рабочих дня после подтверждения заказа. Итоговую цену и дату согласуют при оформлении с учётом адреса и состава заказа; это не расчёт конкретной доставки. Самовывоз оформляется отдельно и только после подтверждения заказа сотрудником. Все тарифы и сроки вымышлены, это не правила ООО «Миртек».",
         "reason_code": "source_answer",
         "intent": "delivery",
         "sources": [
           {
-            "id": "demo-delivery",
+            "id": "demo-delivery-api",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -868,14 +868,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.243,
+        "elapsed_ms": 7.646,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.903
+      "in_process_ms": 9.993
     },
     {
       "case_id": "pickup-general",
@@ -888,14 +888,14 @@
         "contains": "самовывоз"
       },
       "actual": {
-        "request_id": "1ef289fc-2474-45eb-b9c9-2beaedd1a0b1",
+        "request_id": "051034c6-9dcf-4be2-a6d5-3b9c672994b2",
         "status": "answered",
-        "answer": "Учебные условия: доступен самовывоз после подтверждения заказа оператором. Возможность, стоимость и сроки доставки уточняет оператор. Это вымышленные условия для демонстрации, не правила ООО «Миртек».",
+        "answer": "Учебные условия: самовывоз возможен только после подтверждения заказа сотрудником. Наличие на складе самовывоз не подтверждает. Это не правила ООО «Миртек».",
         "reason_code": "source_answer",
         "intent": "delivery",
         "sources": [
           {
-            "id": "demo-delivery",
+            "id": "demo-delivery-api",
             "version": "1",
             "as_of": "2026-10-22T09:00:00+07:00",
             "valid_until": "2026-11-22T09:00:00+07:00",
@@ -907,14 +907,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.042,
+        "elapsed_ms": 6.878,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.561
+      "in_process_ms": 9.143
     },
     {
       "case_id": "delivery-individual",
@@ -927,7 +927,7 @@
         "reason_code": "individual_review_required"
       },
       "actual": {
-        "request_id": "43a82f4a-63fd-4675-b15d-d52af2c5a51c",
+        "request_id": "d8be2d4e-c452-46d2-9e07-a431ad5b32aa",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "individual_review_required",
@@ -938,21 +938,21 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.795,
+        "elapsed_ms": 3.26,
         "data_backend": "http_pull_mock",
         "handoff_payload": {
-          "request_id": "43a82f4a-63fd-4675-b15d-d52af2c5a51c",
+          "request_id": "d8be2d4e-c452-46d2-9e07-a431ad5b32aa",
           "scenarios": [
             "delivery"
           ],
           "customer_text": "Где моя посылка?",
           "reason_code": "individual_review_required"
         },
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.539
+      "in_process_ms": 5.555
     },
     {
       "case_id": "unsupported",
@@ -964,7 +964,7 @@
         "reason_code": "unsupported_intent"
       },
       "actual": {
-        "request_id": "a5f75146-650a-4058-a430-85359211a93a",
+        "request_id": "163076b2-a345-414d-a651-1ca29f3d65e7",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "unsupported_intent",
@@ -975,14 +975,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.858,
+        "elapsed_ms": 3.074,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.554
+      "in_process_ms": 5.373
     },
     {
       "case_id": "explicit-operator",
@@ -994,7 +994,7 @@
         "reason_code": "operator_requested"
       },
       "actual": {
-        "request_id": "44ec4bd6-7d4f-446d-be1d-2f4338e371c2",
+        "request_id": "842bab72-87b8-44a7-895c-eae83b0bdeca",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "operator_requested",
@@ -1005,14 +1005,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 0.025,
+        "elapsed_ms": 0.034,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 1.352
+      "in_process_ms": 2.194
     },
     {
       "case_id": "source-down",
@@ -1025,7 +1025,7 @@
         "reason_code": "source_unavailable"
       },
       "actual": {
-        "request_id": "19707000-68f7-4f03-b4d7-3ccc6bb94569",
+        "request_id": "74d59861-5a2c-4328-b4c2-a05f5ef0ff05",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "source_unavailable",
@@ -1036,14 +1036,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.585,
+        "elapsed_ms": 4.832,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 4.035
+      "in_process_ms": 6.976
     },
     {
       "case_id": "source-stale",
@@ -1056,7 +1056,7 @@
         "reason_code": "source_stale"
       },
       "actual": {
-        "request_id": "53439c81-d0c8-41d9-b099-6ba0195cffba",
+        "request_id": "165ded96-3933-44ac-9191-a8cc57bae6a2",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "source_stale",
@@ -1067,14 +1067,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 4.573,
+        "elapsed_ms": 6.905,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 5.921
+      "in_process_ms": 9.217
     },
     {
       "case_id": "source-wrong-warehouse",
@@ -1087,7 +1087,7 @@
         "reason_code": "source_scope_mismatch"
       },
       "actual": {
-        "request_id": "fe260442-caf0-48ba-b550-581dea3f201b",
+        "request_id": "c85fe9ed-9b80-45ab-9d7b-bd380ef01eaf",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "source_scope_mismatch",
@@ -1098,14 +1098,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 6.567,
+        "elapsed_ms": 6.914,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 8.44
+      "in_process_ms": 9.093
     },
     {
       "case_id": "malformed-model",
@@ -1117,7 +1117,7 @@
         "reason_code": "model_invalid_response"
       },
       "actual": {
-        "request_id": "aab9c812-c212-4ada-9d06-23130d193eda",
+        "request_id": "fc0beb07-4c87-437d-8f30-c31b4ce7b60b",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "model_invalid_response",
@@ -1128,14 +1128,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 2.277,
+        "elapsed_ms": 3.229,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 4.264
+      "in_process_ms": 5.658
     },
     {
       "case_id": "uncertain-model",
@@ -1147,7 +1147,7 @@
         "reason_code": "uncertain_intent"
       },
       "actual": {
-        "request_id": "c38242a6-e512-4355-acd6-c4b706d0f1ea",
+        "request_id": "dc2d7e8c-e29a-4ea0-84db-b1d9df79bfb1",
         "status": "handoff",
         "answer": "Для достоверного ответа нужен оператор. В демоверсии обращение отмечено для передачи; сотруднику оно не отправлено.",
         "reason_code": "uncertain_intent",
@@ -1158,14 +1158,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.868,
+        "elapsed_ms": 3.069,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.402
+      "in_process_ms": 5.286
     },
     {
       "case_id": "new-topic-resets-state",
@@ -1178,25 +1178,25 @@
         "reason_code": "missing_purchase_channel"
       },
       "actual": {
-        "request_id": "b50078da-b277-440f-9d4f-ac7c29555c41",
+        "request_id": "e295676f-1011-40d5-84e9-e8334051a397",
         "status": "needs_clarification",
         "answer": "Покупали в магазине, на сайте или на маркетплейсе?",
         "reason_code": "missing_purchase_channel",
         "intent": "returns",
         "sources": [],
-        "context_id": "cebceaa3-bf81-47a0-8ee0-c15445ea80ff",
+        "context_id": "d4c20ac0-ceb4-4815-b7db-245035e7b09e",
         "operator_required": false,
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 5.285,
+        "elapsed_ms": 6.371,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 6.93
+      "in_process_ms": 8.582
     },
     {
       "case_id": "new-topic-resets-state",
@@ -1209,25 +1209,25 @@
         "reason_code": "missing_warehouse"
       },
       "actual": {
-        "request_id": "a07e0b57-76ad-4fec-91fe-db157db2d3c1",
+        "request_id": "b885004c-668e-43ae-8cac-1722cfba44f5",
         "status": "needs_clarification",
         "answer": "Укажите один идентификатор склада. В демо: WH-DEMO-1 или WH-DEMO-2. Адрес магазина не определяет склад автоматически.",
         "reason_code": "missing_warehouse",
         "intent": "stock",
         "sources": [],
-        "context_id": "ccf073e6-47e1-4ffa-a0ff-9e3fb383038b",
+        "context_id": "3f288ba5-c480-49e0-96b5-48e06a9d8194",
         "operator_required": false,
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 1.843,
+        "elapsed_ms": 3.132,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 3.669
+      "in_process_ms": 5.378
     },
     {
       "case_id": "new-topic-resets-state",
@@ -1240,9 +1240,9 @@
         "contains": "12.5 м"
       },
       "actual": {
-        "request_id": "0eb461da-42fa-4822-866e-0476d4bb77a1",
+        "request_id": "b81d6b6b-3f9b-48bf-a83b-feb0405b4835",
         "status": "answered",
-        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
+        "answer": "Учебный остаток: Хлопок учебный (артикул 10001), Учебный склад 1 (WH-DEMO-1): 12.5 м. В резерве 2.5 м; это количество недоступно. Это доступный остаток на складе, не резерв и не подтверждение самовывоза из магазина.",
         "reason_code": "source_answer",
         "intent": "stock",
         "sources": [
@@ -1259,14 +1259,14 @@
         "handoff_delivered": false,
         "mode": "synthetic_aitunnel",
         "evaluated_at": "2026-10-23T12:00:00+07:00",
-        "elapsed_ms": 28.357,
+        "elapsed_ms": 7.115,
         "data_backend": "http_pull_mock",
         "handoff_payload": null,
-        "recognizer_version": "mirtek-semantic-1"
+        "recognizer_version": "mirtek-semantic-2"
       },
       "matched": true,
       "failures": [],
-      "in_process_ms": 30.176
+      "in_process_ms": 9.661
     }
   ],
   "source_requests": [
@@ -1352,6 +1352,66 @@
       "body": {
         "sku": "10001",
         "warehouse_id": "WH-UNKNOWN"
+      }
+    },
+    {
+      "case_id": "hours-special-closure",
+      "path": "/source/v1/stores/catalog",
+      "body": {}
+    },
+    {
+      "case_id": "hours-special-closure",
+      "path": "/source/v1/stores/hours",
+      "body": {
+        "store_id": "S1",
+        "on_date": "2026-10-23"
+      }
+    },
+    {
+      "case_id": "hours-weekend",
+      "path": "/source/v1/stores/catalog",
+      "body": {}
+    },
+    {
+      "case_id": "hours-weekend",
+      "path": "/source/v1/stores/hours",
+      "body": {
+        "store_id": "S2",
+        "on_date": "2026-10-24"
+      }
+    },
+    {
+      "case_id": "hours-weekday",
+      "path": "/source/v1/stores/catalog",
+      "body": {}
+    },
+    {
+      "case_id": "hours-weekday",
+      "path": "/source/v1/stores/hours",
+      "body": {
+        "store_id": "S2",
+        "on_date": "2026-10-26"
+      }
+    },
+    {
+      "case_id": "promotions-current",
+      "path": "/source/v1/promotions/list",
+      "body": {
+        "on_date": "2026-10-23"
+      }
+    },
+    {
+      "case_id": "delivery-general",
+      "path": "/source/v1/delivery/terms",
+      "body": {
+        "topic": "delivery_terms"
+      }
+    },
+    {
+      "case_id": "pickup-general",
+      "path": "/source/v1/delivery/terms",
+      "body": {
+        "topic": "pickup_terms"
       }
     },
     {

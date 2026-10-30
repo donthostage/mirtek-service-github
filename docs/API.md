@@ -1,10 +1,10 @@
 # API 0.4
 
-Обновление API 0.3: POST /api/v1/availability принимает sku и warehouse_id и возвращает Reply. Сообщения stock/returns/complaints используют HTTP-мок источника; появился intent complaints, data_backend snapshot/http_pull_mock и необязательный handoff_payload. /health содержит source_backend. Доступ к реальным системам отсутствует. Контракты источника и новые reason_code описаны в HTTP_PULL.md.
+Обновление API 0.3: POST /api/v1/availability принимает sku и warehouse_id и возвращает Reply. Все шесть направлений используют HTTP-мок источника; появился intent complaints, data_backend snapshot/http_pull_mock и необязательный handoff_payload. /health содержит source_backend. Доступ к реальным системам отсутствует. Контракты источника и новые reason_code описаны в HTTP_PULL.md.
 
 Адрес локальной демонстрации: `http://127.0.0.1:8766`. Swagger: `/docs`, машинная схема: `/openapi.json`. Внешние ресурсы Swagger могут требовать интернет; экспорт схемы включён в `docs/openapi.json`.
 
-В 0.4 добавлено recognizer_version: lexical-1, mirtek-semantic-1 или исторический intent-legacy-1. Для структурированного availability распознаватель не вызывается, значение not_used. В /health версия относится к выбранной конфигурации, а не подтверждает качество модели.
+В 0.4 добавлено recognizer_version: lexical-1, mirtek-semantic-2 или исторический intent-legacy-1. Для структурированного availability распознаватель не вызывается, значение not_used. В /health версия относится к выбранной конфигурации, а не подтверждает качество модели.
 
 ## POST /api/v1/messages
 
@@ -15,7 +15,7 @@ JSON: `{"text":"Как работает магазин на Учебной?","co
 - `request_id`: UUID конкретного запроса.
 - `status`: `answered`, `needs_clarification` или `handoff`.
 - `answer`: текст для показа пользователю.
-- `intent`: `hours`, `stock`, `promotions`, `delivery`, `returns` или null.
+- `intent`: `hours`, `stock`, `promotions`, `delivery`, `returns`, `complaints` или null.
 - `reason_code`: машиночитаемая причина.
 - `sources`: id, version, as_of, valid_until, synthetic; при автоматическом ответе обязательно есть источник.
 - `context_id`: токен только для ожидаемого уточнения. Срок 15 минут, перезапуск его удаляет.
@@ -38,3 +38,9 @@ Handoff возвращается с 200: это результат обрабо�
 ## Ограничения среды
 
 API предназначен для локальной разработки с одним процессом. Не публиковать напрямую: необходимы аутентификация, разграничение диалогов, TLS, ограничения размера HTTP-тела и частоты, политика хранения и мониторинг. Не передавать персональные данные в демо.
+
+## Общий таймаут
+
+Модель и источники делят бюджет 4,5 секунды на обработку. При его исчерпании — статус `handoff`, `reason_code=request_timeout`, без источников и неподтверждённого ответа. Отдельные пределы модели/источника сохраняются (3,5/1 секунда). Очередь HTTP-сервера не входит в этот внутренний бюджет; KPI измеряется отдельно на границе API.
+
+При подтверждении смысла reason_code=confirm_intent, context_id содержит ожидающий контекст; «да» продолжает вопрос без новой генерации. При «нет» ответ needs_clarification/rephrase_question не содержит контекста: следующий запрос начинает новый вопрос. Структурированные ответы на предложенный канал и ожидаемый артикул/склад также не требуют повторного LLM-вызова.

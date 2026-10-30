@@ -10,6 +10,7 @@ from contracts.reference import (
     StoreCatalogResult,
 )
 from .sources import SourceFailure
+from .deadline import operation_budget
 
 
 class SourceAPI:
@@ -29,12 +30,16 @@ class SourceAPI:
         return asyncio.run(self._post_async(path,body,model))
 
     async def _post_async(self,path,body,model):
+        budget, request_limited = operation_budget(self.timeout)
+        timeout_reason = 'request_timeout' if request_limited else 'source_timeout'
+        if budget <= 0:
+            raise SourceFailure(timeout_reason)
         headers={}
         if self._key.get_secret_value():
             headers['Authorization']='Bearer '+self._key.get_secret_value()
         try:
-            async with asyncio.timeout(self.timeout):
-                async with httpx.AsyncClient(transport=self.transport,timeout=self.timeout,
+            async with asyncio.timeout(budget):
+                async with httpx.AsyncClient(transport=self.transport,timeout=budget,
                                             trust_env=False,follow_redirects=False) as client:
                     async with client.stream('POST',self.base_url+path,json=body,headers=headers) as response:
                         if response.status_code!=200:
@@ -47,7 +52,7 @@ class SourceAPI:
         except SourceFailure:
             raise
         except (httpx.TimeoutException,TimeoutError):
-            raise SourceFailure('source_timeout') from None
+            raise SourceFailure(timeout_reason) from None
         except httpx.HTTPError:
             raise SourceFailure('source_unavailable') from None
         except (ValidationError,ValueError,TypeError):

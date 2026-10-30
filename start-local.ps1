@@ -1,15 +1,17 @@
+﻿param([int]$ApiPort = 8766, [int]$SourcePort = 8767)
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
-$runtimePython = 'C:\Users\Даниил\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
-$localVendor = Join-Path (Split-Path (Split-Path $projectRoot -Parent) -Parent) 'work\vendor'
-if (-not (Test-Path -LiteralPath $runtimePython) -or -not (Test-Path -LiteralPath $localVendor)) {
-    throw 'Локальная среда не найдена. Используйте инструкцию установки в README.md.'
+$runtimePython = Join-Path $projectRoot '.venv\Scripts\python.exe'
+if (-not (Test-Path -LiteralPath $runtimePython)) {
+    throw 'Сначала создайте .venv и установите зависимости по README.md.'
 }
-$env:PYTHONPATH = $localVendor
-$env:PYTHONIOENCODING = 'utf-8'
+$previousMode = $env:MIRTEK_CLASSIFIER
 Push-Location -LiteralPath $projectRoot
 try {
-    & $runtimePython -m scripts.run_demo
+    $env:MIRTEK_CLASSIFIER = 'baseline'
+    & $runtimePython -m scripts.run_demo --api-port $ApiPort --source-port $SourcePort
+    if ($LASTEXITCODE -ne 0) { throw "Сервис завершился с кодом $LASTEXITCODE." }
 } finally {
+    $env:MIRTEK_CLASSIFIER = $previousMode
     Pop-Location
 }

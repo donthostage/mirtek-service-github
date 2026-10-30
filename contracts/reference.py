@@ -5,7 +5,7 @@ company contract onto these requests. The service does not write anything.
 """
 from datetime import date, datetime
 from typing import Literal
-from pydantic import AwareDatetime, Field, model_validator
+from pydantic import AwareDatetime, ConfigDict, Field, model_validator
 from .models import StrictModel
 
 
@@ -56,6 +56,10 @@ class HoursQuery(StrictModel):
 
 
 class HoursResult(StrictModel):
+    model_config = ConfigDict(json_schema_extra={'allOf': [{
+        'if': {'properties': {'status': {'const': 'found'}}, 'required': ['status']},
+        'then': {'required': ['hours']},
+    }]})
     status: Literal['found', 'store_unknown', 'date_unconfirmed', 'unavailable']
     store_id: str | None = None
     store_name: str | None = None
@@ -69,6 +73,8 @@ class HoursResult(StrictModel):
         if self.status == 'found':
             if not self.store_id or not self.store_name or self.on_date is None or self.source is None:
                 raise ValueError('Found hours require store, date and source')
+            if 'hours' not in self.model_fields_set:
+                raise ValueError('Found hours require an explicit hours value; null means closed')
             if self.hours is not None and not self.hours.strip():
                 raise ValueError('Blank hours')
         elif present:
@@ -86,6 +92,10 @@ class PromotionLine(StrictModel):
 
 
 class PromotionResult(StrictModel):
+    model_config = ConfigDict(json_schema_extra={'allOf': [{
+        'if': {'properties': {'status': {'const': 'found'}}, 'required': ['status']},
+        'then': {'required': ['promotions']},
+    }]})
     status: Literal['found', 'unavailable']
     on_date: date | None = None
     promotions: list[PromotionLine] = Field(default_factory=list)
@@ -96,6 +106,8 @@ class PromotionResult(StrictModel):
         if self.status == 'found':
             if self.on_date is None or self.source is None:
                 raise ValueError('Found promotions require the date and source')
+            if 'promotions' not in self.model_fields_set:
+                raise ValueError('Found promotions require an explicit list; [] means no promotions')
         elif self.promotions or self.on_date or self.source is not None:
             raise ValueError('Only found promotions carry lines')
         return self

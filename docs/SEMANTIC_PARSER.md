@@ -30,4 +30,4 @@
 
 Добавлены проверки выдуманных и частичных ID, новой темы вместо уточнения, наследования параметров, общего вопроса со словом «мне», жалобы на сотрудника, личного требования денег, двух намерений и дат. Ответы модели в них заданы вручную через MockTransport. Поддержка произвольных формулировок реальной выбранной моделью пока не измерена: ключ и модель не настроены.
 
-JSON Schema: contracts/semantic-result.schema.json. Поле recognizer_version в Reply и /health отличает mirtek-semantic-1 от lexical-1 и исторического intent-legacy-1.
+JSON Schema: contracts/semantic-result.schema.json. Поле recognizer_version в Reply и /health отличает mirtek-semantic-2 от lexical-1 и исторического intent-legacy-1.

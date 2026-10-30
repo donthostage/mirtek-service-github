@@ -64,6 +64,25 @@
     }
   },
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "found"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "promotions"
+        ]
+      }
+    }
+  ],
   "properties": {
     "status": {
       "enum": [

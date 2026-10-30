@@ -11,6 +11,7 @@ from app.aitunnel import AITunnelClassifier, ENDPOINT
 from app.models import Message
 from app.service import Service
 from app.settings import build_classifier
+from app.settings import request_timeout
 from app.sources import SnapshotRepository
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -155,3 +156,69 @@ def test_api_reports_unconfigured_aitunnel(monkeypatch):
         reply=client.post('/api/v1/messages',json={'text':'Как работает S1?'}).json()
         assert reply['mode'] == 'synthetic_aitunnel'
         assert reply['reason_code'] == 'model_not_configured'
+@pytest.mark.parametrize('value', ['nan', 'inf', '-1', '0', '61'])
+def test_diagnostic_timeout_must_be_finite_and_bounded(monkeypatch, value):
+    monkeypatch.setenv('MIRTEK_REQUEST_TIMEOUT_SECONDS', value)
+    with pytest.raises(ValueError): request_timeout()
+
+
+def test_diagnostic_limits_are_explicit_and_do_not_change_defaults(monkeypatch):
+    monkeypatch.setenv('MIRTEK_CLASSIFIER', 'aitunnel')
+    monkeypatch.delenv('AITUNNEL_TIMEOUT_SECONDS', raising=False)
+    monkeypatch.delenv('MIRTEK_REQUEST_TIMEOUT_SECONDS', raising=False)
+    assert build_classifier().timeout == 3.5 and request_timeout() == 4.5
+    monkeypatch.setenv('AITUNNEL_TIMEOUT_SECONDS', '15')
+    monkeypatch.setenv('MIRTEK_REQUEST_TIMEOUT_SECONDS', '18')
+    monkeypatch.setenv('AITUNNEL_BASE_URL', 'https://ru-api.aitunnel.ru/v1')
+    parser=build_classifier()
+    assert parser.timeout == 15 and request_timeout() == 18
+    assert parser.endpoint == 'https://ru-api.aitunnel.ru/v1/chat/completions'
+    monkeypatch.setenv('AITUNNEL_BASE_URL', 'https://attacker.example/v1')
+    with pytest.raises(ValueError): build_classifier()
+
+
+def test_safe_provider_log_records_stage_and_status_without_body_or_key(caplog):
+    import logging
+    def handler(request):
+        return httpx.Response(401, text='private vendor body with a key')
+    parser=AITunnelClassifier('fake-secret-key', 'test-model', transport=httpx.MockTransport(handler))
+    with caplog.at_level(logging.INFO, logger='mirtek.aitunnel'):
+        result=parser.classify('Какие акции?')
+    assert result.reason == 'model_unavailable'
+    assert 'stage=waiting_headers' in caplog.text and 'http_status=401' in caplog.text
+    assert 'fake-secret-key' not in caplog.text and 'private vendor body' not in caplog.text
+
+
+def test_truncated_completion_logs_counters_without_private_text(caplog):
+    import logging
+    envelope={'choices':[{'finish_reason':'length','message':{
+        'content':None,'reasoning':'private reasoning never logged'}}],
+        'usage':{'prompt_tokens':500,'completion_tokens':1200,
+                 'completion_tokens_details':{'reasoning_tokens':1200}}}
+    parser=AITunnelClassifier('fake-secret-key','test-model',
+                             transport=httpx.MockTransport(lambda r:httpx.Response(200,json=envelope)))
+    with caplog.at_level(logging.INFO, logger='mirtek.aitunnel'):
+        result=parser.classify('Какие акции?')
+    assert result.reason == 'model_invalid_response'
+    assert 'finish_reason=length' in caplog.text and 'reasoning_tokens=1200' in caplog.text
+    assert 'private reasoning' not in caplog.text and 'fake-secret-key' not in caplog.text
+
+
+def test_reasoning_setting_is_validated(monkeypatch):
+    monkeypatch.setenv('MIRTEK_CLASSIFIER','aitunnel')
+    monkeypatch.setenv('AITUNNEL_REASONING_EFFORT','none')
+    assert build_classifier().reasoning_effort == 'none'
+    monkeypatch.setenv('AITUNNEL_REASONING_EFFORT','unexpected')
+    with pytest.raises(ValueError): build_classifier()
+
+
+def test_classifier_factory_does_not_write_runtime_logs(monkeypatch):
+    from app import settings
+    monkeypatch.setenv('MIRTEK_CLASSIFIER','aitunnel')
+    def forbidden():
+        pytest.fail('Building a test/comparison classifier must not initialize application file logs')
+    monkeypatch.setattr(settings,'configure_provider_log',forbidden)
+    parser=build_classifier()
+    assert parser.mode=='synthetic_aitunnel'
+    parser.close()
+

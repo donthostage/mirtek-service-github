@@ -1,0 +1,32 @@
+{
+  "version": "v1",
+  "status": "PROPOSED_NOT_APPROVED",
+  "prepared_at": "2026-10-30T09:21:38.409998+00:00",
+  "accepted_by": null,
+  "scope": "synthetic mocks only",
+  "sha256": {
+    "contracts/delivery-query.schema.json": "fb23605f067c179c9793861385a97cfaf23f8094a8d3454e6c7d0573fb189cd8",
+    "contracts/delivery-result.schema.json": "fa34f68271755b8881ccb790bddf23d70249b366942d937af8f3f90171b2d6a9",
+    "contracts/examples.json": "59a14d9f35390df8ae884c3c7f1e70c3693d4d4a6a83da3869fbb840f2f47a08",
+    "contracts/hours-query.schema.json": "217cacfef4f2c2012f9a97d0f2d57ab79747d2a191eb6cbeaf2414e7736c1faf",
+    "contracts/hours-result.schema.json": "f9857304f0de21fa3c023b4ff2acc675608839a0aab1bbe975605143f56edf52",
+    "contracts/inventory-query.schema.json": "ef6a01c66fa52fdb9f6e681f75c41dba62c64da42b9fc81e81d4606892ce3249",
+    "contracts/inventory-result.schema.json": "1369f75807c2e7394d30b88d234385a2cbcf5e42f8efd92a0ce80e3a0f2ab6d8",
+    "contracts/parse-result.schema.json": "a25b220f3d9d5ed6e3827349ca4029a690d89303e77571c3c9e6eb069d3a713f",
+    "contracts/policy-query.schema.json": "84cf373bf30c5ec0447f1b1bb3e95fc4afc3c4fe928e9f3a42405534c4b5eabd",
+    "contracts/policy-result.schema.json": "550b7d6d658faabf751d6d52baaa1fe5e1bce30af81d3a741e739effeb5144ae",
+    "contracts/promotion-query.schema.json": "d57653b270f50a24c2e3abfb7b94db2e54ff0cc68450cbdd0a6c80d1432baca9",
+    "contracts/promotion-result.schema.json": "723804632750e2d4560dc1c21d08f93a18e389a7b13dabaa5b282d48ffa2d85d",
+    "contracts/README.md": "56ddbf23f97e9fc6770c097bd8169a9c0c19833d02d70ff621638043c0c78978",
+    "contracts/requests.http": "a73447790537d1a2e2f69ef85a47d570040bd331396980de3451e73df55791a9",
+    "contracts/semantic-result.schema.json": "d1fb03ee6749c831ba7b36b689e2adade0d2b934d77fddab28cc602857c2ad72",
+    "contracts/source-openapi.json": "10b09dce7359c51a5141f7823e6f63aaa3d87b72061f987a5536b544c492d32e",
+    "contracts/store-catalog-query.schema.json": "be538fbc58ab1dc3f72ef3ab4fda60a4f25b8e59bee0c88d0ef945f689715174",
+    "contracts/store-catalog-result.schema.json": "d0cf44405f8f0ca79f1ef0a1bcf8ab965b2caf0e8c93fd6be1c7b9291dc8c6af",
+    "docs/ACCEPTANCE.md": "d2902e79c3040b39526295e193285c306f995be7213f414fa60c4d5b1a220c3c",
+    "docs/API.md": "a7a0c2bd3e4c51f16bde5969ede93986b5772c7ca21f75f7c0ff61cc4f187ea5",
+    "docs/CONTRACT_AGREEMENT.md": "8472ea6dacd8d63b199f2bc7fd4a2f6dcb4c0effb35fdb99d3180e278d55742f",
+    "docs/HTTP_PULL.md": "0740db5adc18b20c45b1aaafaa9b71a730416b4fbb94d60be92dca351f31e6fd",
+    "docs/openapi.json": "9b07ce6c1044c487f0fde4db29b6364d4e1c68d872b73a467fa2b364b40b879d"
+  }
+}

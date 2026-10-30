@@ -171,13 +171,13 @@ def test_reference_gateway_answers_without_inventing_terms(remote_service):
     assert promo.status=='answered' and '5%' in promo.answer and promo.sources[0].id=='demo-promotions-api'
     delivery=ask(remote_service,'Какие условия доставки?')
     assert delivery.status=='answered' and 'после подтверждения' in delivery.answer
-    assert '₽' not in delivery.answer and delivery.sources[0].id=='demo-delivery-api'
+    assert 'от 300 ₽' in delivery.answer and delivery.sources[0].id=='demo-delivery-api'
     pickup=ask(remote_service,'Как забрать покупку?')
     assert pickup.status=='answered' and 'самовывоз' in pickup.answer
     price=ask(remote_service,'Сколько стоит доставка?')
-    assert price.reason_code=='individual_policy_question'
+    assert price.status=='answered' and 'от 300 ₽' in price.answer and price.sources[0].id=='demo-delivery-api'
     review=ask(remote_service,'Какой срок рассмотрения жалобы?')
-    assert review.status=='answered' and 'не указан' in review.answer and not any(ch.isdigit() for ch in review.answer)
+    assert review.status=='answered' and '3 рабочих дней' in review.answer and 'вымышленный' in review.answer
     returns=ask(remote_service,'Как оформить возврат?')
     assert returns.reason_code=='missing_purchase_channel'
     market=ask(remote_service,'На маркетплейсе', returns.context_id)
@@ -191,3 +191,9 @@ def test_structured_endpoint_and_key_not_returned(remote_service,monkeypatch):
         assert r.status_code==200 and r.json()['status']=='answered'
         assert consumer.post('/api/v1/availability',json={'sku':'10001'}).status_code==422
         assert consumer.get('/health').json()['source_backend']=='http_pull_mock'
+
+
+def test_return_initiation_reads_policy_instead_of_automatic_escalation(remote_service):
+    reply=ask(remote_service,'Купил товар в магазине, хочу оформить возврат. Что нужно сделать?')
+    assert reply.status=='answered' and reply.sources[0].id=='DEMO-returns-steps-store'
+    assert '1.' in reply.answer and '2.' in reply.answer and '3.' in reply.answer

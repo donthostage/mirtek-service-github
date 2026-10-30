@@ -56,6 +56,13 @@ def smoke(api_url,source_process,report_path):
         post('/api/v1/messages',{'text':'В магазине','context_id':first['context_id']},'answered')
         post('/api/v1/messages',{'text':'Как оставить жалобу?'},'answered')
         post('/api/v1/messages',{'text':'Жалоба на обслуживание'},'handoff','individual_review_required')
+        post('/api/v1/messages',{'text':'Как работает S1 2026-10-29?'},'answered')
+        post('/api/v1/messages',{'text':'Какие акции?'},'answered')
+        post('/api/v1/messages',{'text':'Какие условия доставки?'},'answered')
+        post('/api/v1/messages',{'text':'Как забрать покупку?'},'answered')
+        post('/api/v1/messages',{'text':'Есть 10001-2 WH-DEMO-1?'},'handoff','unknown_product')
+        post('/api/v1/messages',{'text':'Есть артикул 10001 WH-DEMO-1.2?'},'handoff','unknown_warehouse')
+        post('/api/v1/messages',{'text':'Есть артикул 10001 и 10002 WH-DEMO-1?'},'needs_clarification','ambiguous_product')
         stop(source_process)
         post('/api/v1/availability',{'sku':'10001','warehouse_id':'WH-DEMO-1'},'handoff',('source_unavailable','source_timeout'))
     report={'label':'REAL LOOPBACK HTTP PULL WITH SYNTHETIC DATA; NOT COMPANY KPI',
@@ -74,7 +81,10 @@ def main():
     parser.add_argument('--source-port',type=int,default=8767)
     parser.add_argument('--smoke',action='store_true')
     parser.add_argument('--report')
+    parser.add_argument('--open-browser', action='store_true')
+    parser.add_argument('--reload', action='store_true', help='Local development: reload code without re-entering the key')
     args=parser.parse_args()
+    if args.reload and args.smoke: raise ValueError('Reload and smoke must be run separately')
     if args.api_port==args.source_port: raise ValueError('Ports must differ')
     for port in (args.api_port,args.source_port):
         with socket.socket() as sock: sock.bind(('127.0.0.1',port))
@@ -90,11 +100,17 @@ def main():
         for module,port,env,field,value in [
             ('contracts.mock_api:app',args.source_port,source_env,'mode','synthetic_policy_mock'),
             ('app.main:app',args.api_port,api_env,'source_backend','http_pull_mock')]:
-            process=subprocess.Popen([sys.executable,'-m','uvicorn',module,'--host','127.0.0.1','--port',str(port)],
+            command=[sys.executable,'-m','uvicorn',module,'--host','127.0.0.1','--port',str(port)]
+            if args.reload:
+                command += ['--reload','--reload-dir',str(ROOT/'app'),'--reload-dir',str(ROOT/'contracts')]
+            process=subprocess.Popen(command,
                                       cwd=ROOT,env=env,creationflags=flags)
             owned.append(process)
             wait_ready(process,f'http://127.0.0.1:{port}',field,value)
         print(f'Demo: http://127.0.0.1:{args.api_port} | Mock source: http://127.0.0.1:{args.source_port}/docs',flush=True)
+        if args.open_browser and not args.smoke:
+            import webbrowser
+            webbrowser.open(f'http://127.0.0.1:{args.api_port}')
         if args.smoke:
             smoke(f'http://127.0.0.1:{args.api_port}',owned[0],args.report)
             return

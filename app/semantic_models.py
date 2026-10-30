@@ -14,6 +14,12 @@ class Mention(SemanticModel):
     text: str = Field(min_length=1,max_length=120)
 
 
+class GroundingError(ValueError):
+    def __init__(self, field, code):
+        self.field, self.code = field, code
+        super().__init__('Invalid parameter evidence')
+
+
 class ChannelMention(SemanticModel):
     value: Literal['store','website','marketplace']
     text: str = Field(min_length=1,max_length=120)
@@ -60,7 +66,7 @@ class SemanticResult(SemanticModel):
             if mention is None: continue
             value=mention.text
             if value!=value.strip() or not value.strip():
-                raise ValueError('Empty or padded evidence')
+                raise GroundingError(key, 'padded_evidence')
             folded=value.casefold().replace('ё','е')
             # Full tokens prevent selecting 10001 from 100012, or WH-A from WH-ABC.
             if key in ('sku','warehouse_id'):
@@ -68,9 +74,24 @@ class SemanticResult(SemanticModel):
             else:
                 pattern=r'(?<!\w)'+re.escape(folded)+r'(?!\w)'
             if not re.search(pattern,normalized):
-                raise ValueError('Evidence absent from current message')
+                raise GroundingError(key, 'evidence_absent')
+            if key in ('sku','warehouse_id'):
+                # Providers sometimes quote the parameter label along with its
+                # value. Strip only a complete known label after grounding the
+                # full quote; never take a prefix or choose among several IDs.
+                label = r'(?:артикул|sku)' if key=='sku' else r'(?:склад|warehouse)'
+                tagged = re.fullmatch(label+r'\s*[:№#]?\s+([A-Za-z0-9_.-]{1,64})', value, re.IGNORECASE)
+                if tagged:
+                    value = tagged.group(1)
+                    mention.text = value
+                combined = re.fullmatch(r'([A-Za-z0-9_.-]{1,64})\s+(WH-[A-Za-z0-9_.-]{1,64})',value,re.IGNORECASE)
+                if combined and re.search(r'(?:артикул|\bsku)\s*[:№#]?\s+'+re.escape(combined.group(1))+r'(?![A-Za-z0-9_.-])',text,re.IGNORECASE):
+                    # A grounded quote may cover both explicitly labelled SKU
+                    # and WH code. They name different fields, not two choices.
+                    value = combined.group(1 if key=='sku' else 2)
+                    mention.text = value
             if key in ('sku','warehouse_id') and not re.fullmatch(r'[A-Za-z0-9_.-]{1,64}',value):
-                raise ValueError('Invalid identifier')
+                raise GroundingError(key, 'invalid_identifier')
         return self
 
 

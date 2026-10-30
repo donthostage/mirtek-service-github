@@ -1,0 +1,50 @@
+@api = http://127.0.0.1:9876
+@source = http://127.0.0.1:9877
+
+### Client: message
+POST {{api}}/api/v1/messages
+Content-Type: application/json
+
+{"text":"Как оформить возврат?","context_id":null}
+
+### Client: structured stock
+POST {{api}}/api/v1/availability
+Content-Type: application/json
+
+{"sku":"10001","warehouse_id":"WH-DEMO-1"}
+
+### Source: return policy
+POST {{source}}/source/v1/policies/resolve
+Content-Type: application/json
+
+{"scenario":"returns","topic":"steps","purchase_channel":"store"}
+
+### Source: stock
+POST {{source}}/source/v1/inventory/lookup
+Content-Type: application/json
+
+{"sku":"10001","warehouse_id":"WH-DEMO-1"}
+
+### Source: store catalog
+POST {{source}}/source/v1/stores/catalog
+Content-Type: application/json
+
+{}
+
+### Source: confirmed store hours
+POST {{source}}/source/v1/stores/hours
+Content-Type: application/json
+
+{"store_id":"S1","on_date":"2026-10-29"}
+
+### Source: promotions
+POST {{source}}/source/v1/promotions/list
+Content-Type: application/json
+
+{"on_date":"2026-10-29"}
+
+### Source: delivery
+POST {{source}}/source/v1/delivery/terms
+Content-Type: application/json
+
+{"topic":"delivery_terms"}

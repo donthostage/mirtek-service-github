@@ -40,6 +40,25 @@
     }
   },
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "found"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "hours"
+        ]
+      }
+    }
+  ],
   "properties": {
     "status": {
       "enum": [

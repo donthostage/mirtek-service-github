@@ -1,0 +1,48 @@
+{
+  "label": "THREE REPEATED SYNTHETIC REGRESSION RUNS; NOT INDEPENDENT HOLDOUT",
+  "reports": [
+    "mock-acceptance-regression-2026-10-30.json",
+    "mock-acceptance-repeat-2.json",
+    "mock-acceptance-repeat-3.json"
+  ],
+  "unique_dialogues": 52,
+  "dialogue_executions": 156,
+  "metrics": {
+    "correct_decisions": {
+      "numerator": 153,
+      "denominator": 156,
+      "percent": 98.08,
+      "threshold": 90,
+      "passed": true
+    },
+    "factual_answers": {
+      "numerator": 117,
+      "denominator": 117,
+      "percent": 100.0,
+      "threshold": 90,
+      "passed": true
+    },
+    "within_five_seconds": {
+      "numerator": 240,
+      "denominator": 244,
+      "percent": 98.36,
+      "threshold": 95,
+      "passed": true
+    },
+    "automation": {
+      "numerator": 117,
+      "denominator": 144,
+      "percent": 81.25,
+      "threshold": 80,
+      "passed": true
+    }
+  },
+  "all_individual_runs_passed": false,
+  "pooled_observed_thresholds_passed": true,
+  "limitations": [
+    "All three declared post-fix runs included, including timeouts.",
+    "Same 52 agent-authored dialogues repeated; no independent confidence interval reported.",
+    "Pooled success does not imply every run passed or a company SLA.",
+    "Diagnostic time limits 15/18 seconds; company_connected=false; cost unknown."
+  ]
+}

@@ -5,6 +5,7 @@ from contracts.inventory import InventoryQuery
 from contracts.models import ParseResult, PolicyQuery
 from contracts.reference import DeliveryQuery, HoursQuery, PromotionQuery
 from contracts.workflow import decide
+from .identifiers import skus, warehouses
 from .classifier import normalized
 from .models import Source
 from .semantic_models import resolve_mentioned_date
@@ -104,7 +105,9 @@ def remote_promotions(client, *, query, semantic, clock, intent, result, handoff
 
 
 def remote_delivery(client, *, query, semantic, clock, intent, result, handoff):
-    if re.search(r'\d|мой|моего|мою|мне|могу|успе|сегодня|завтра|цен|стоим|сколько|бесплат|срок|когда|адрес|\bв\s+[а-я]+', query):
+    # General price/time questions are part of delivery terms. Only a personal
+    # quote, destination or promised arrival requires data absent from this API.
+    if re.search(r'\d|(?:мой|моего|мою)\s+(?:заказ|покуп|достав)|могу|успе|сегодня|завтра|адрес|\bв\s+[а-я]+', query):
         return handoff('individual_policy_question', intent)
     topic='pickup_terms' if re.search(r'самовывоз|забрать', query) else 'delivery_terms'
     if semantic and semantic.topic in ('delivery_terms', 'pickup_terms'):
@@ -132,16 +135,18 @@ def remote_message(client, *, intent, text, query, state, customer_text, semanti
             if requested!=clock().date(): return handoff('future_stock_unknown',intent)
         if re.search(r'завтра|послезавтра|будет|недел|\d{4}-\d{2}-\d{2}',query):
             return handoff('future_stock_unknown',intent)
-        def skus(value):
-            explicit=re.findall(r'(?:артикул|\bsku)\s*[:№#]?\s*([a-z0-9][a-z0-9_.-]{0,63})',value)
-            return list(dict.fromkeys(s.upper() for s in (explicit or re.findall(r'\b\d{5}\b',value))))
-        def warehouses(value):
-            return list(dict.fromkeys(s.upper() for s in re.findall(r'\bwh-[a-z0-9-]+\b',value)))
         ids=skus(text) or ([state['remote_sku']] if state and state.get('remote_sku') else skus(query))
         whs=warehouses(text) or ([state['warehouse_id']] if state and state.get('warehouse_id') else warehouses(query))
+        if len(ids)>1:
+            return clarify('Укажите один артикул товара.', 'ambiguous_product')
+        if len(whs)>1:
+            return clarify('Укажите один склад.', 'ambiguous_warehouse', remote_sku=ids[0] if len(ids)==1 else None)
         if semantic:
-            ids=[semantic.slots.sku.text] if semantic.slots.sku else []
-            whs=[semantic.slots.warehouse_id.text] if semantic.slots.warehouse_id else []
+            # Explicit structured identifiers in the customer's text remain
+            # available even when the model omits an optional slot. Never invent
+            # an ID or overwrite a current explicit parameter with old context.
+            ids=ids or ([semantic.slots.sku.text] if semantic.slots.sku else [])
+            whs=whs or ([semantic.slots.warehouse_id.text] if semantic.slots.warehouse_id else [])
         extra={'remote_sku':ids[0] if len(ids)==1 else None,'warehouse_id':whs[0] if len(whs)==1 else None}
         if len(ids)!=1:
             return clarify('Укажите один артикул товара, например 10001 для учебного примера.',
@@ -166,6 +171,9 @@ def remote_message(client, *, intent, text, query, state, customer_text, semanti
     # Only a generic policy question may be auto-answered. This conservative
     # parameter extraction is explicitly a baseline, not a new semantic parser.
     personal=bool(re.search(r'\bхочу\b|\bмогу\b|\bмне\b|\bмой\b|\bмо[яю]\b|верните|компенсац|отказ|\bбрак|отрезан|где.*деньг|когда.*деньг|статус',query))
+    procedure=bool(re.search(r'как\s+(?:оформить|подать)|что\s+(?:мне\s+)?нужно|что\s+нужно\s+сделать|хочу\s+оформить\s+возврат|какие\s+документ',query))
+    if procedure and not re.search(r'верните|компенсац|отказ|\bбрак|отрезан|где.*деньг|когда.*деньг|статус',query):
+        personal=False
     if intent=='complaints' and not re.search(r'как|куда|порядок|срок|правил',query):
         personal=True
     if intent=='returns' and not re.search(r'как|услов|правил|документ|порядок|что нужно|какие',query):

@@ -7,6 +7,9 @@ from .classifier import RuleClassifier, normalized
 from .models import Reply
 from .sources import SourceFailure
 from .semantic_models import SemanticResult, Slots, resolve_mentioned_date
+from .deadline import request_budget
+from .aitunnel import logger
+from .identifiers import skus as explicit_skus, warehouses as explicit_warehouses
 
 # Fixed offset avoids requiring an external tzdata package on Windows.
 from datetime import timezone
@@ -40,12 +43,13 @@ class Contexts:
 
 
 class Service:
-    def __init__(self, repository, classifier=None, clock=None, source_client=None):
+    def __init__(self, repository, classifier=None, clock=None, source_client=None, request_timeout=4.5):
         self.repository = repository
         self.classifier = classifier or RuleClassifier()
         self.clock = clock or (lambda: datetime.now(KUZBASS))
         self.contexts = Contexts()
         self.source_client = source_client
+        self.request_timeout = request_timeout
 
     @property
     def recognizer_version(self):
@@ -53,6 +57,10 @@ class Service:
                        'lexical-1' if self.classifier.mode=='synthetic_rule_baseline' else 'intent-legacy-1')
 
     def process(self, message):
+        with request_budget(self.request_timeout):
+            return self._process(message)
+
+    def _process(self, message):
         started = time.perf_counter()
         now = self.clock()
         base = dict(request_id=str(uuid4()), evaluated_at=now.isoformat(), mode=self.classifier.mode,
@@ -60,6 +68,8 @@ class Service:
                     recognizer_version=self.recognizer_version)
 
         def result(status, answer, reason, **kwargs):
+            logger.info('event=decision request_id=%s status=%s reason=%s intent=%s source_count=%d',
+                        base['request_id'], status, reason, kwargs.get('intent'), len(kwargs.get('sources', [])))
             return Reply(**base, status=status, answer=answer, reason_code=reason,
                          operator_required=status == 'handoff',
                          elapsed_ms=round((time.perf_counter()-started)*1000, 3), **kwargs)
@@ -70,6 +80,9 @@ class Service:
         state = self.contexts.get(message.context_id) if message.context_id else None
         if message.context_id and state is None:
             return handoff('context_expired')
+        if state and state.get('pending_field')=='confirm_intent' and re.fullmatch(r'нет[.!]?',normalized(message.text).strip()):
+            return result('needs_clarification','Тогда напишите вопрос заново: что именно хотите узнать?',
+                          'rephrase_question')
         # Reject oversized accumulated context before any paid external request.
         if len((state['query'] + ' ' if state else '') + message.text) > 6000:
             return handoff('context_limit', state['intent'] if state else None)
@@ -139,6 +152,12 @@ class Service:
             return result('needs_clarification', answer, reason, intent=intent, context_id=context_id)
 
         try:
+            if semantic and semantic.uncertain and not (intent=='stock' and (len(explicit_skus(text))>1 or len(explicit_warehouses(text))>1)):
+                names={'hours':'график работы магазина','stock':'наличие товара на складе',
+                       'returns':'правила возврата','complaints':'порядок работы с жалобами',
+                       'delivery':'условия доставки или самовывоза','promotions':'действующие акции'}
+                return clarify(f'Правильно понимаю: вы хотите узнать {names[intent]}? Ответьте «да» или уточните вопрос.',
+                               'confirm_intent')
             if self.source_client and intent in ('stock','returns','complaints','hours','promotions','delivery'):
                 from .pull_flow import remote_message
                 return remote_message(self.source_client,intent=intent,text=text,query=query,state=state,
@@ -224,6 +243,10 @@ class Service:
             return handoff(exc.reason, intent)
 
     def availability(self, query):
+        with request_budget(self.request_timeout):
+            return self._availability(query)
+
+    def _availability(self, query):
         from .pull_flow import stock_fields
         start=time.perf_counter()
         try:
@@ -237,3 +260,4 @@ class Service:
                      recognizer_version='not_used',
                      operator_required=fields['status']=='handoff',
                      elapsed_ms=round((time.perf_counter()-start)*1000,3),**fields)
+
